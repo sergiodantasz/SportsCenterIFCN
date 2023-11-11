@@ -1,10 +1,6 @@
 # Sports Center IFCN
 
-<div align="center" width="300px">
-
-![Logo do Sports Center IFCN.](pages/img/logo.png)
-
-</div>
+<img src="pages/img/logo.png" alt="Logo do Sports Center IFCN." width="300px" align="center">
 
 O presente repositório é utilizado para armazenar o código do Sports Center IFCN. Este projeto está sendo desenvolvido como método de avaliação da disciplina de Projeto Integrador, requerida no 3º período do curso técnico integrado em Informática, do IFRN *Campus* Currais Novos.
 
