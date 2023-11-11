@@ -4,7 +4,7 @@ O presente repositório é utilizado para armazenar o código do Sports Center I
 
 ## Sobre
 
-O Sports Center IFCN é uma plataforma online que tem como objetivo principal manter toda a comunidade currais-novense do IFRN sempre atualizada a respeito dos esportes no *campus*, por meio da inserção de diversas funcionalidades no site, como notícias, fotografias, vídeos, história e muito mais.
+O Sports Center IFCN é uma plataforma online que tem como objetivo principal manter toda a comunidade do IFRN currais-novense sempre atualizada a respeito dos esportes no *campus*, por meio da inserção de diversas funcionalidades no site, como notícias, fotografias, vídeos, história e muito mais.
 
 ## Ferramentas
 
