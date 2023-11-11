@@ -31,6 +31,6 @@ O time do projeto é composto por 7 pessoas, separadas pelos cargos listados aba
 | Sérgio Dantas     | Programador Sênior |
 | Gabriel Medeiros  | Programador Sênior |
 | João Vitor        | Programador Pleno  |
-| Maria Gabriela    | Programadora Pleno |
+| Maria Gabriela    | Programadora Plena |
 | Jordan Cainã      | Programador Júnior |
 | Pedro Samuel      | Programador Júnior |
