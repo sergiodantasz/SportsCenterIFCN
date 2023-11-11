@@ -1,0 +1,238 @@
+body{
+            margin: 0px;
+        }
+        @font-face {
+            font-family: 'Gabarito';
+            src: url('Gabarito-VariableFont_wght.ttf'), format('ttf');
+            font-weight: normal;
+            font-style: normal;
+        }
+        nav{
+            height: 50px;
+            width: 100%; /*a proporção da largura é 1920% maior que a altura -> ('height * 19.2 = width')*/
+            background-color: #fff;
+            box-shadow: 5px 0px 15px grey;
+
+            display: flex;
+        }
+        #half-left{
+            width: 492.48px; /*a proporção é 51,30% da largura da tag "nav"*/
+            height: 100%;
+
+            display: flex;
+        }
+        #half-right{
+            width: 467.52px; /*a proporção é 48,70% da largura da tag "nav"*/
+            height: 100%;
+
+            display: flex;
+            flex-direction: row-reverse;
+            align-items: center;
+        }
+        #child-half-left{
+            width: 172.52px; /*a proporção é 35,03% da largura da div "half-left"*/
+            height: 100%;
+
+            display: flex;
+            align-items: center;
+        }
+        #child-half-right{
+            width: 319.96px; /*a proporção é 64,97% da largura da div "half-left"*/
+            height: 100%;
+
+            display: flex;
+            align-items: center;
+        }
+        #icon-container{
+            width: 34.6px; /*a proporção da largura é 19,71% da largura da div "child-half-left"*/
+            height: 38px; /*a proporção da altura é 76% da altura da tag "nav"*/
+
+            margin-left: 100.01px; /*a proporção da margem esquerda é 57,97% da largura da div "child-half-left"*/
+
+            object-fit: cover;
+            overflow: hidden;
+        }
+        #icon-container > img{
+            width: 100%;
+            height: auto;
+        }
+        #half-right > button{
+            margin-right: 100px;
+
+            width: 107.5px; /*a proporção da largura é 22,99% da largura da div "half-right"*/
+            height: 25px; /*a proporção da altura é de 50% a altura da tag "nav"*/
+
+            border-radius: 28px;
+            border: 1.5px solid #2E8A43; /*a espessura da borda é metade de 12% da altura do botão ->(('height' * 0.12) / 2) = espessura da borda*/
+            background-color: #fff;
+            
+            color: #2E8A43;
+            font-family: 'Gabarito', Times; /*a fonte é importada, chama-se Gabarito*/
+            font-size: 12px; /*size equivale a 48% a altura do botão*/
+            font-weight: 350; /*a proporção do weight é de 29,17 vezes maior que a font-size -> ('font-size' * 29,17) = weight*/
+
+            display: flex;
+
+            transition: filter 0.3s;
+        }
+        #half-right > button:hover{
+            filter: brightness(115%);
+            cursor: pointer;
+        }
+        #half-right > button:active{
+            scale: 0.95;
+        }
+        #login-icon{
+            height: 17px; /*a proporção da altura é de 68% a altura do botão*/
+            width: 17px; /*a largura é igual a altura*/
+        }
+        button > div:nth-child(1){
+            width: 39px; /*a proporção da largura é de metade de 72,56% da largura do botão -> (('largura do botão' * 0.7256) / 2) = width*/
+            height: 100%;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+        }
+        button > div:nth-child(2){
+            width: 29.5px; /*a proporção da alrgura é de 27,44% da largura do botão -> ('largura do botão' * 0.2744) = width*/
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        button > div:nth-child(3){
+            width: 39px; /*a proporção da largura é de metade de 72,56% da largura do botão -> (('largura do botão' * 0.7256) / 2) = width*/
+            height: 100%;
+        }
+        #links-nav{
+            list-style: none;
+            margin: 0px;
+            padding: 0px;
+        }
+        #links-nav > li{
+            display: inline;
+            float: left;
+        }
+        #link-nav{
+            font-size: 12px;
+            font-weight: 350;
+            font-family: 'Gabarito', Times;
+
+            transition: color 0.3s;
+        }
+        .ativo{
+            color: #2E8A43;
+        }
+        #link-nav:not(.treinos){
+            padding-right: 29.98px; /*a proporção é de 9,37% da largura da div 'child-half-right'*/
+        }
+        #link-nav:hover{
+            color: #2E8A43;
+            cursor: pointer;
+        }
+
+        @media screen and (max-width: 1920px){
+            nav{
+                height: 80px;
+            }
+            #half-left{
+                width: 787.97px;
+            }
+            #half-right{
+                width: 748.03px;
+            }
+            #child-half-left{
+                width: 276.02px;
+            }
+            #child-half-right{
+                width: 511.94px;
+            }
+            #icon-container{
+                width: 54.40px;
+                height: 60.8px;
+
+                margin-left: 160.01px;
+            }
+            #half-right > button{
+                width: 171.97px;
+                height: 40px;
+
+                border: 2.4px solid green;
+
+                font-size: 19.2px;
+                font-weight: 600; 
+            }
+            #login-icon{
+                height: 27.20px;
+                width: 27.20px;
+            }
+            button > div:nth-child(1){
+                width: 62.39px;
+            }
+            button > div:nth-child(2){
+                width: 47.19px;
+            }
+            button > div:nth-child(3){
+                width: 62.39px;
+            }
+            #link-nav{
+                font-size: 19.2px;
+                font-weight: 600;
+            }
+            #link-nav:not(.treinos){
+            padding-right: 47.97px;
+            }
+        }
+        @media screen and (max-width: 1440px){
+            nav{
+                width: 100%;
+                height: 75px;
+            }
+            #half-left{
+                width: 738.72px;
+            }
+            #half-right{
+                width: 701.28px;
+            }
+            #child-half-left{
+                width: 258.77px;
+            }
+            #child-half-right{
+                width: 479.95px;
+            }
+            #icon-container{
+                width: 51px;
+                height: 57px;
+
+                margin-left: 150px;
+            }
+            #half-right > button{
+                width: 161.22px;
+                height: 37.95px;
+
+                border: 2.25px solid green;
+
+                font-size: 18px;
+                font-weight: 600; 
+            }
+            #login-icon{
+                height: 25.5px;
+                width: 25.5px;
+            }
+            button > div:nth-child(1){
+                width: 58.49px;
+            }
+            button > div:nth-child(2){
+                width: 44.24px;
+            }
+            button > div:nth-child(3){
+                width: 58.49px;
+            }
+            #link-nav{
+                font-size: 18px;
+                font-weight: 600;
+            }
+            #link-nav:not(.treinos){
+            padding-right: 44.97px;
+            }
+        }
