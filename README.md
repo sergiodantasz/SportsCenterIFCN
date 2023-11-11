@@ -1,6 +1,10 @@
 # Sports Center IFCN
 
-Repositório utilizado para armazenar o código do Sports Center IFCN. Este projeto está sendo desenvolvido como método de avaliação da disciplina de Projeto Integrador, presente no 3º período do curso técnico integrado em Informática, do IFRN *Campus* Currais Novos.
+O presente repositório é utilizado para armazenar o código do Sports Center IFCN. Este projeto está sendo desenvolvido como método de avaliação da disciplina de Projeto Integrador, requerida no 3º período do curso técnico integrado em Informática, do IFRN *Campus* Currais Novos.
+
+## Sobre
+
+O Sports Center IFCN é uma plataforma online que tem como objetivo principal manter toda a comunidade currais-novense do IFRN sempre atualizada a respeito dos esportes no *campus*, por meio da inserção de diversas funcionalidades no site, como notícias, fotografias, vídeos, história e muito mais.
 
 ## Ferramentas
 
@@ -27,6 +31,6 @@ O time do projeto é composto por 7 pessoas, separadas pelos cargos listados aba
 | Sérgio Dantas     | Programador Sênior |
 | Gabriel Medeiros  | Programador Sênior |
 | João Vitor        | Programador Pleno  |
-| Maria Gabriela    | Programador Pleno  |
+| Maria Gabriela    | Programadora Pleno |
 | Jordan Cainã      | Programador Júnior |
 | Pedro Samuel      | Programador Júnior |
