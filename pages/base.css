@@ -1,0 +1,162 @@
+:root {
+  --cor-preta: #000;
+  --cor-branca: #FFF;
+  --cor-cinza: #D9D9D9;
+  --cor-verde: #2E8A43;
+  --cor-verde-escura: #143D1E;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-family: 'Gabarito', sans-serif;
+  font-size: 2rem;
+}
+
+a {
+  text-decoration: none;
+}
+
+h1 {
+  font-size: 32px;
+}
+
+h2 {
+  font-size: 28px;
+}
+
+h3 {
+  font-size: 24px;
+}
+
+.fundo-branco {
+  background-color: var(--cor-branca);
+  color: var(--cor-preta);
+}
+
+.fundo-branco a {
+  color: inherit;
+}
+
+.fundo-verde-escuro {
+  background-color: var(--cor-verde-escura);
+  color: var(--cor-verde);
+}
+
+.fundo-verde-escuro a {
+  color: inherit;
+}
+
+.conteudo {
+  max-width: 150rem;
+  margin: 0 auto;
+}
+
+.centro {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.barra-navegacao {
+  height: 10rem;
+  border-bottom: solid 0.3rem var(--cor-cinza);
+}
+
+.menu {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  font-weight: 700;
+  justify-content: space-between;
+}
+
+.menu > img {
+  width: 7rem;
+}
+
+.menu > ul {
+  list-style: none;
+  display: flex;
+  gap: 2rem;
+  padding-left: 10rem;
+  padding-right: 10rem;
+}
+
+.menu > ul > li > a {
+  color: inherit;
+  position: relative;
+  padding: 2rem;
+}
+
+.menu > ul > li > a::after {
+  content: '';
+  position: absolute;
+  bottom: 1rem;
+  left: 50%;
+  width: 0;
+  height: 0.3rem;
+  background-color: var(--cor-verde);
+  transition: all 300ms ease-in-out;
+  border-radius: 1rem;
+}
+
+.menu > ul > li > a:hover::after {
+  width: 75%;
+  left: 12.5%;
+}
+
+.menu > a {
+  display: flex;
+  align-items: center;
+  color: var(--cor-verde);
+  border: solid 0.2rem var(--cor-verde);
+  border-radius: 10rem;
+  padding: 0.5rem;
+  width: 20rem;
+  margin-left: auto;
+}
+
+.menu > a > img {
+  filter: brightness(0) saturate(100%) invert(40%) sepia(99%) saturate(303%) hue-rotate(81deg) brightness(90%) contrast(95%);
+  width: 3.5rem;
+}
+
+.menu > a > p {
+  margin: 0 auto;
+}
+
+.secao-1,
+.secao-2,
+.secao-3 {
+  height: 50rem;
+}
+
+.rodape {
+  border-radius: 5rem 5rem 0 0;
+  padding: 5rem;
+}
+
+.rodape > div {
+  display: flex;
+}
+
+.rodape > div > div {
+  border: solid 0.2rem var(--cor-verde);
+  border-radius: 1rem;
+  margin-left: 5rem;
+  margin-right: 5rem;
+}
+
+.rodape > div > p {
+  width: 50%;
+}
