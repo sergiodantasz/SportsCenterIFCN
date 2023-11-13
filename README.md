@@ -13,9 +13,16 @@ As ferramentas utilizadas na aplicação são mostradas na seguinte tabela, junt
 | Tecnologia | Versão |
 |------------|--------|
 | Python     | 3.12.0 |
-| Django     | 4.2.7  |
 | HTML       | 5      |
 | CSS        | 3      |
+
+### Pacotes
+
+| Pacote        | Versão           |
+|---------------|------------------|
+| Django        | >= 4.2.7 e < 4.3 |
+| mysqlclient   | >= 2.2.0 e < 2.3 |
+| python-dotenv | >= 1.0.0 e < 1.1 |
 
 ## Padronização
 
