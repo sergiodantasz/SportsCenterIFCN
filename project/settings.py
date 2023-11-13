@@ -43,6 +43,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # Social Auth
+    'social_django',
 ]
 
 MIDDLEWARE = [
@@ -53,6 +56,9 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    # Social Auth
+    'social_django.middleware.SocialAuthExceptionMiddleware',
 ]
 
 ROOT_URLCONF = 'project.urls'
@@ -68,6 +74,10 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+
+                # Social Auth
+                'social_django.context_processors.backends',
+                'social_django.context_processors.login_redirect',
             ],
         },
     },
@@ -89,6 +99,11 @@ DATABASES = {
         'PORT': getenv('DB_PORT', 'ALTERAR'),
     }
 }
+
+AUTHENTICATION_BACKENDS = (
+    'suap_backend.backends.SuapOAuth2',  # Autenticação SUAP
+    'django.contrib.auth.backends.ModelBackend',
+)
 
 
 # Password validation
@@ -131,3 +146,8 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# Chaves da aplicação SUAP
+SOCIAL_AUTH_SUAP_KEY=getenv('SOCIAL_AUTH_SUAP_KEY', '')
+SOCIAL_AUTH_SUAP_SECRET=getenv('SOCIAL_AUTH_SUAP_SECRET', '')

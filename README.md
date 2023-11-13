@@ -18,11 +18,13 @@ As ferramentas utilizadas na aplicação são mostradas na seguinte tabela, junt
 
 ### Pacotes
 
-| Pacote        | Versão           |
-|---------------|------------------|
-| Django        | >= 4.2.7 e < 4.3 |
-| mysqlclient   | >= 2.2.0 e < 2.3 |
-| python-dotenv | >= 1.0.0 e < 1.1 |
+| Pacote                 | Versão           |
+|------------------------|------------------|
+| Django                 | >= 4.2.7 e < 4.3 |
+| mysqlclient            | >= 2.2.0 e < 2.3 |
+| python-dotenv          | >= 1.0.0 e < 1.1 |
+| social-auth-app-django | >= 5.4.0 e < 5.5 |
+| social-auth-core       | >= 4.5.0 e < 4.6 |
 
 ## Padronização
 
