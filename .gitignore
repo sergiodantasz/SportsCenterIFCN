@@ -3,10 +3,9 @@
 *.pot
 *.pyc
 __pycache__
-db.sqlite3
-media
+data
 local_settings.py
-static
+/static
 
 # Backup files #
 *.bak
