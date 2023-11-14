@@ -1,21 +1,30 @@
-{% extends "sportscenterifcn/pages/base.html" %}
+{% extends "global/pages/base.html" %}
+
+{% load static %}
 
 {% block titulo %}Login - Sports Center IFCN{% endblock titulo %}
 
-{% block conteudo %}
-  <div class="fundo-branco">
-    <div class="secao-1 conteudo centro">
-      <h1>Seção 1</h1>
+{% block pagina %}
+  <div class="pagina-login fundo-branco">
+    <div class="tela-login">
+      <header class="cabecalho-login">
+        <img class="logo-login" src="{% static "global/img/logo.png" %}" alt="Logo do Sports Center IFCN.">
+        <h1>Bem-vindo(a) ao Sports Center IFCN</h1>
+        <p>Conecte-se com a sua conta do SUAP</p>
+      </header>
+      <div class="campo-autenticacao">
+        <div class="botao-login">
+          <p><b>Autenticar com o SUAP</b></p>
+        </div>
+        <p>Deseja voltar para o início? <a class="link" href="{% url "sportscenterifcn:inicio" %}">Clique aqui</a>.</p>
+      </div>
+      <footer class="rodape-login">
+        <p>Fique informado e saiba tudo sobre os esportes no campus</p>
+        <div class="barra"></div>
+      </footer>
+    </div>
+    <div class="imagem-login">
+      <img src="{% static "global/img/imagem-login.png" %}" alt="Imagem do time de futsal do IFCN com um filtro verde.">
     </div>
   </div>
-  <div class="fundo-verde-escuro">
-    <div class="secao-2 conteudo centro">
-      <h1>Seção 2</h1>
-    </div>
-  </div>
-  <div class="fundo-branco">
-    <div class="secao-3 conteudo centro">
-      <h1>Seção 3</h1>
-    </div>
-  </div>
-{% endblock conteudo %}
+{% endblock pagina %}

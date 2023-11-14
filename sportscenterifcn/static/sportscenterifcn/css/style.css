@@ -26,19 +26,30 @@ a {
 }
 
 h1 {
-  font-size: 32px;
+  font-size: 3.2rem;
+  margin: 0;
 }
 
 h2 {
-  font-size: 28px;
+  font-size: 2.8rem;
 }
 
 h3 {
-  font-size: 24px;
+  font-size: 2.4rem;
 }
 
 a {
   color: inherit;
+}
+
+.link {
+  text-decoration: underline;
+  color: var(--cor-verde);
+  transition: all 300ms ease-in-out;
+}
+
+.link:hover {
+  color: var(--cor-verde-escura);
 }
 
 .fundo-branco {
@@ -163,6 +174,79 @@ a {
   margin: 0 5rem;
 }
 
+/* LOGIN */
+
+.pagina-login {
+  padding: 5rem;
+  text-align: center;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5rem;
+}
+
+.tela-login {
+  max-width: 56rem;
+  min-height: calc(100vh - 10rem);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1.5rem;
+  justify-self: center;
+}
+
+.cabecalho-login {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.logo-login {
+  width: 9rem;
+}
+
+.campo-autenticacao {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.campo-autenticacao > .botao-login {
+  background-color: var(--cor-verde);
+  color: var(--cor-branca);
+  width: 100%;
+  height: 7rem;
+  border-radius: 5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.rodape-login {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.rodape-login > .barra {
+  width: 28rem;
+  margin: 0;
+}
+
+.imagem-login {
+  max-width: 50vw;
+  max-height: calc(100vh - 10rem);
+}
+
+.imagem-login > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 5rem;
+}
+
 /* BREAKPOINTS */
 
 @media screen and (max-width: 1200px) {
@@ -187,6 +271,12 @@ a {
   }
   .menu {
     padding-left: 0;
+  }
+  .imagem-login {
+    display: none;
+  }
+  .pagina-login {
+    grid-template-columns: 1fr;
   }
 }
 
@@ -232,4 +322,13 @@ a {
   /*
   Afazer: barra de navegação mobile, que será exibida somente ao clicar no botão de menu.
   */
+}
+
+@media screen and (max-width: 450px) {
+  .pagina-login {
+    padding: 2.5rem;
+  }
+  .tela-login {
+    min-height: calc(100vh - 5rem);
+  }
 }
