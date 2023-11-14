@@ -6,4 +6,9 @@ app_name = 'sportscenterifcn'
 
 urlpatterns = [
     path('', views.inicio, name='inicio'),
+    path('noticias/', views.noticias, name='noticias'),
+    path('arquivos/', views.arquivos, name='arquivos'),
+    path('treinos/', views.treinos, name='treinos'),
+    path('historia/', views.historia, name='historia'),
+    path('login/', views.login, name='login'),
 ]
