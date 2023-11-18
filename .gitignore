@@ -3,7 +3,7 @@
 *.pot
 *.pyc
 __pycache__
-data
+/data
 local_settings.py
 /static
 
