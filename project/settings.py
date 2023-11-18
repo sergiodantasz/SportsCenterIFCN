@@ -17,6 +17,7 @@ from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+DATA_DIR = BASE_DIR / 'data'
 
 load_dotenv(BASE_DIR / '.env', override=True)
 
@@ -106,7 +107,7 @@ DATABASES = {
 }
 
 AUTHENTICATION_BACKENDS = (
-    'suap_backend.backends.SuapOAuth2',  # Autenticação SUAP
+    'suap.backends.SuapOAuth2',  # Backend do SUAP
     'django.contrib.auth.backends.ModelBackend',
 )
 
@@ -150,6 +151,9 @@ STATICFILES_DIRS = [
     BASE_DIR / 'base' / 'static',
 ]
 STATIC_ROOT = BASE_DIR / 'static'
+
+MEDIA_URL = 'media/'
+MEDIA_ROOT = DATA_DIR / 'media'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field

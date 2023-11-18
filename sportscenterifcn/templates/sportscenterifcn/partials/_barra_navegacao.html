@@ -10,9 +10,16 @@
       <li><a href="{% url "sportscenterifcn:treinos" %}">Treinos</a></li>
       <li><a href="{% url "sportscenterifcn:historia" %}">História</a></li>
     </ul>
-    <a class="login" href="{% url "sportscenterifcn:login" %}">
-      <img src="{% static "global/img/icone-usuario.png" %}" alt="Ícone de usuário.">
-      <p>Login</p>
-    </a>
+    {% if user.is_authenticated %}
+      <a class="login" href="{% url "sportscenterifcn:perfil" %}">
+        <img src="{% static "global/img/icone-usuario.png" %}" alt="Ícone de usuário.">
+        <p class="regular">{{ user.get_full_name|title }}</p>
+      </a>
+    {% else %}
+      <a class="login" href="{% url "sportscenterifcn:login" %}">
+        <img src="{% static "global/img/icone-usuario.png" %}" alt="Ícone de usuário.">
+        <p>Login</p>
+      </a>
+    {% endif %}
   </div>
 </aside>

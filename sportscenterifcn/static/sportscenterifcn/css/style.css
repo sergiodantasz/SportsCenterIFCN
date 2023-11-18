@@ -10,6 +10,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  border: none;
 }
 
 html {
@@ -40,6 +41,14 @@ h3 {
 
 a {
   color: inherit;
+}
+
+.regular {
+  font-weight: 400;
+}
+
+.bold {
+  font-weight: 700;
 }
 
 .link {
@@ -136,14 +145,32 @@ a {
   min-width: 20rem;
   min-height: 5rem;
   margin-left: auto;
+  transition: all 300ms ease-in-out;
+}
+
+.login:hover {
+  border-color: var(--cor-verde-escura);
 }
 
 .login > img {
   width: 3.5rem;
+  transition: all 300ms ease-in-out;
+}
+
+.login:hover > img {
+  filter: brightness(0) saturate(100%) invert(16%) sepia(46%) saturate(714%) hue-rotate(82deg) brightness(98%) contrast(91%);
 }
 
 .login > p {
   margin: 0 auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  text-align: center;
+  transition: all 300ms ease-in-out;
+}
+
+.login:hover > p {
+  color: var(--cor-verde-escura);
 }
 
 /* SEÇÕES */
@@ -212,7 +239,7 @@ a {
   gap: 1.5rem;
 }
 
-.campo-autenticacao > .botao-login {
+.botao-login {
   background-color: var(--cor-verde);
   color: var(--cor-branca);
   width: 100%;
@@ -221,6 +248,11 @@ a {
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: all 300ms ease-in-out;
+}
+
+.botao-login:hover {
+  background-color: var(--cor-verde-escura);
 }
 
 .rodape-login {
@@ -245,6 +277,64 @@ a {
   height: 100%;
   object-fit: cover;
   border-radius: 5rem;
+}
+
+/* PERFIL */
+
+.cabecalho-perfil {
+  padding-top: 5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+  text-align: center;
+  justify-content: center;
+}
+
+.cabecalho-perfil > .barra, .informacoes-usuario + .barra {
+  margin: 0;
+}
+
+.informacoes-usuario {
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+}
+
+.informacoes-usuario + .barra {
+  margin-bottom: 2.5rem;
+}
+
+.informacoes-usuario p {
+  color: var(--cor-verde);
+}
+
+.informacoes-usuario h3 {
+  margin-bottom: 1rem;
+}
+
+.matricula, .nome {
+  margin-bottom: 4rem;
+}
+
+.form-sair {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 5rem;
+}
+
+.botao-sair {
+  background-color: var(--cor-verde);
+  color: var(--cor-branca);
+  height: 5rem;
+  width: 15rem;
+  border-radius: 5rem;
+  font-weight: 700;
+  font-size: 2rem;
+  transition: all 300ms ease-in-out;
+  cursor: pointer;
+}
+
+.botao-sair:hover {
+  background-color: var(--cor-verde-escura);
 }
 
 /* BREAKPOINTS */
@@ -310,7 +400,7 @@ a {
   .rodape > .conteudo {
     flex-direction: column;
   }
-  .barra {
+  .rodape > .conteudo > .barra {
     margin: 5rem 0;
   }
   .rodape > .conteudo > p {

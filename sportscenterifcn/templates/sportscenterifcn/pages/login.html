@@ -13,9 +13,9 @@
         <p>Conecte-se com a sua conta do SUAP</p>
       </header>
       <div class="campo-autenticacao">
-        <div class="botao-login">
-          <p><b>Autenticar com o SUAP</b></p>
-        </div>
+        <a class="botao-login" href="{% url "social:begin" "suap" %}">
+          <b>Autenticar com o SUAP</b>
+        </a>
         <p>Deseja voltar para o início? <a class="link" href="{% url "sportscenterifcn:inicio" %}">Clique aqui</a>.</p>
       </div>
       <footer class="rodape-login">

@@ -11,4 +11,7 @@ urlpatterns = [
     path('treinos/', views.treinos, name='treinos'),
     path('historia/', views.historia, name='historia'),
     path('login/', views.login, name='login'),
+    path('accounts/profile/', views.redirecionar_perfil, name='redirecionar_perfil'),
+    path('perfil/', views.perfil, name='perfil'),
+    path('logout/', views.logout, name='logout')
 ]

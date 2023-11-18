@@ -1,0 +1,40 @@
+{% extends "sportscenterifcn/pages/base.html" %}
+
+{% block titulo %}Perfil - {{ user.get_full_name|title }} - Sports Center IFCN{% endblock titulo %}
+
+{% block conteudo %}
+  {% if user.is_authenticated %}
+    <div class="conteudo fundo-branco">
+      <header class="cabecalho-perfil">
+        <h1>Perfil</h1>
+        <div class="barra"></div>
+      </header>
+      <div class="informacoes-usuario">
+        <div class="matricula">
+          <h3>Matrícula</h3>
+          <p>{{ user.username }}</p>
+        </div>
+        <div class="nome">
+          <h3>Nome</h3>
+          <p>{{ user.get_full_name|title }}</p>
+        </div>
+        <div class="email">
+          <h3>E-mail</h3>
+          <p>{{ user.email }}</p>
+        </div>
+      </div>
+      <div class="barra"></div>
+      <form id="form-sair" class="form-sair" method="post" action="{% url 'sportscenterifcn:logout' %}">
+        {% csrf_token %}
+        <button class="botao-sair" type="submit">Sair</button>
+      </form>
+    </div>
+    <script>
+      $("#form-sair").submit(function(event) {
+        event.preventDefault();
+        window.location.href="https://suap.ifrn.edu.br/accounts/logout/";
+        this.submit();
+      });
+    </script>
+  {% endif %}
+{% endblock conteudo %}
