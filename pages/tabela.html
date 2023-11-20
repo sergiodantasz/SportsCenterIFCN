@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tabela</title>
+    <style>
+        body{
+            font-family: Arial, Helvetica, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .page-titulo{
+            text-align: center;
+            margin-bottom: 5px;
+        }
+        hr{
+            border: 1px solid #2e8a43;
+            margin: 15px 0px 50px 0px;
+            width: 1100px;
+        }
+        .div-table{
+            width: 1100px;
+            height: 508px;
+            
+            border-radius: 25px;
+            border: 1px solid #2e8a43;
+        }
+        table{
+            width: 1100px;
+            border-collapse: collapse;
+            margin: auto;
+        }
+        thead{
+            background-color: #2e8a43;
+            color:white;
+        }
+        td, th{
+            width: 550px;
+            padding: 10px;
+            text-align: center;
+        }
+        td:not(.left-item), th:not(.left-item){
+            border-left: 1px solid #2e8a43;
+        }
+        td:not(.bottom-item){
+            border-bottom: 1px solid #2e8a43;
+        }
+        .table-titulo > th:nth-child(1){
+            border-radius: 23px 0 0 0;
+        }
+        .table-titulo > th:nth-child(2){
+            border-radius: 0 23px 0 0;
+        }
+    </style>
+</head>
+<body>
+    <h1 class="page-titulo">Treinos</h1>
+    <hr>
+
+    <section class="div-table">
+        <table>
+            <thead>
+                <tr class="table-titulo">
+                    <th class="left-item">Esporte</th>
+                    <th>Dia(s) e Horário(s)</th>
+                </tr>
+            </thead>
+            <tbody class="table-corpo">
+                <tr>
+                    <td class="left-item">Futsal Masculino</td>
+                    <td>Segunda: 18h00 à 19h30, Terça: 19h30 à 21h00</td>
+                </tr>
+                <tr>
+                    <td class="left-item">Futsal Feminino</td>
+                    <td>Terça: 18h00 à 19h30, Quarta: 19h30 à 21h00</td>
+                </tr>
+                <tr>
+                    <td class="left-item">Futebol Masculino</td>
+                    <td>Quarta: 18h00 à 19h30, Qinta: 19h30 à 21h00</td>
+                </tr>
+                <tr>
+                    <td class="left-item">Vôlei Masculino</td>
+                    <td>Quinta: 18h00 à 19h30, Sexta: 19h30 à 21h00</td>
+                </tr>
+                <tr>
+                    <td class="left-item">Vôlei Feminino</td>
+                    <td>Sexta: 10h00 à 11h30, Sexta: 21h00 à 22h30</td>
+                </tr>
+                <tr>
+                    <td class="left-item">Handebol Masculino</td>
+                    <td>Segunda: 10h00 à 11h30, Terça: 21h00 à 22h30</td>
+                </tr>
+                <tr>
+                    <td class="left-item">Handebol Feminino</td>
+                    <td>Terça: 8h00 à 10h30, Quarta: 21h00 à 22h30</td>
+                </tr>
+                <tr>
+                    <td class="left-item">Basquete Masculino</td>
+                    <td>Quarta: 8h00 à 10h30, Quinta: 21h00 à 22h30</td>
+                </tr>
+                <tr>
+                    <td class="left-item">Vôlei Areia Masculino</td>
+                    <td>Quinta: 8h00 à 10h30, Sexta: 21h00 à 22h30</td>
+                </tr>
+                <tr>
+                    <td class="left-item">Vôlei Areia Feminino</td>
+                    <td>Terça: 7h00 à 8h00, Terça: 12h00 à 13h30</td>
+                </tr>
+                <tr>
+                    <td class="left-item">Atletismo</td>
+                    <td>Quarta: 9h30 à 11h00, Sexta: 9h30 à 11h00</td>
+                </tr>
+                <tr>
+                    <td class="bottom-item left-item">Natação</td>
+                    <td class="bottom-item">Quinta: 7h00 à 8h00, Sexta: 15h00 à 17h00</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+</body>
+</html>
