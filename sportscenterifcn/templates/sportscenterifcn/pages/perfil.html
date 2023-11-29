@@ -1,6 +1,6 @@
 {% extends "sportscenterifcn/pages/base.html" %}
 
-{% block titulo %}Perfil - {{ user.get_full_name|title }} - Sports Center IFCN{% endblock titulo %}
+{% block titulo %}Perfil - {{ usuario.nome_registro }} - Sports Center IFCN{% endblock titulo %}
 
 {% block conteudo %}
   {% if user.is_authenticated %}
@@ -12,15 +12,37 @@
       <div class="informacoes-usuario">
         <div class="matricula">
           <h3>Matrícula</h3>
-          <p>{{ user.username }}</p>
+          <p>{{ usuario.matricula }}</p>
         </div>
         <div class="nome">
           <h3>Nome</h3>
-          <p>{{ user.get_full_name|title }}</p>
+          {% if usuario.nome_social %}
+            <p>{{ usuario.nome_social }}</p>
+          {% else %}
+            <p>{{ usuario.nome_registro }}</p>
+          {% endif %}
+        </div>
+        <div class="cpf">
+          <h3>CPF</h3>
+          <p>{{ usuario.cpf }}</p>
         </div>
         <div class="email">
-          <h3>E-mail</h3>
-          <p>{{ user.email }}</p>
+          <h3>E-mails</h3>
+          <p>{{ usuario.email_pessoal }}</p>
+          <p>{{ usuario.email_escolar }}</p>
+          <p>{{ usuario.email_academico }}</p>
+        </div>
+        <div class="campus">
+          <h3>Campus</h3>
+          <p>{{ usuario.campus }}</p>
+        </div>
+        <div class="tipo-usuario">
+          <h3>Tipo de Usuário</h3>
+          <p>{{ usuario.tipo_usuario }}</p>
+        </div>
+        <div class="data-nascimento">
+          <h3>Data de Nascimento</h3>
+          <p>{{ usuario.data_nascimento|date:"d/m/Y" }}</p>
         </div>
       </div>
       <div class="barra"></div>

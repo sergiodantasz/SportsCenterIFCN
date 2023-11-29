@@ -4,3 +4,4 @@ python-dotenv>=1.0.0,<1.1
 social-auth-app-django>=5.4.0,<5.5
 social-auth-core>=4.5.0,<4.6
 Pillow>=10.1.0,<10.2
+mysql-connector-python>=8.2.0,<8.3

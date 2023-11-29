@@ -26,6 +26,7 @@ As ferramentas utilizadas na aplicação são mostradas na seguinte tabela, junt
 | social-auth-app-django | >= 5.4.0 e < 5.5   |
 | social-auth-core       | >= 4.5.0 e < 4.6   |
 | Pillow                 | >= 10.1.0 e < 10.2 |
+| mysql-connector-python | >= 8.2.0 e <8.3    |
 
 ## Padronização
 

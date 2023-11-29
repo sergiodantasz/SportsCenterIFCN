@@ -12,8 +12,8 @@
     </ul>
     {% if user.is_authenticated %}
       <a class="login" href="{% url "sportscenterifcn:perfil" %}">
-        <img src="{% static "global/img/icone-usuario.png" %}" alt="Ícone de usuário.">
-        <p class="regular">{{ user.get_full_name|title }}</p>
+        <img class="foto-pessoal" src="https://suap.ifrn.edu.br{{ usuario.foto }}" alt="Ícone de usuário.">
+        <p class="regular">{{ usuario.nome }}</p>
       </a>
     {% else %}
       <a class="login" href="{% url "sportscenterifcn:login" %}">

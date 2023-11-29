@@ -154,11 +154,24 @@ a {
 
 .login > img {
   width: 3.5rem;
+  height: 3.5rem;
   transition: all 300ms ease-in-out;
+}
+
+.login > img.foto-pessoal {
+  border-radius: 50%;
+  width: 3.5rem;
+  height: 3.5rem;
+  object-fit: cover;
+  object-position: center;
 }
 
 .login:hover > img {
   filter: brightness(0) saturate(100%) invert(16%) sepia(46%) saturate(714%) hue-rotate(82deg) brightness(98%) contrast(91%);
+}
+
+.login:hover > img.foto-pessoal {
+  filter: none;
 }
 
 .login > p {
@@ -311,7 +324,12 @@ a {
   margin-bottom: 1rem;
 }
 
-.matricula, .nome {
+.matricula,
+.nome,
+.cpf,
+.email,
+.campus,
+.tipo-usuario {
   margin-bottom: 4rem;
 }
 

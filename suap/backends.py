@@ -1,5 +1,9 @@
 from social_core.backends.oauth import BaseOAuth2
 
+from sportscenterifcn.models import Usuario
+
+from utils.usuario import formatar_url_foto
+
 
 class SuapOAuth2(BaseOAuth2):
     name = 'suap'
@@ -11,8 +15,40 @@ class SuapOAuth2(BaseOAuth2):
     REDIRECT_STATE = True
     STATE_PARAMETER = True
     USER_DATA_URL = 'https://suap.ifrn.edu.br/api/eu/'
+    DEFAULT_SCOPE = [
+        'identificacao', 'email', 'documentos_pessoais',
+    ]
 
     def get_user_details(self, response):
+        # Validar se é do campus CN
+        dados = {
+            'matricula': response['identificacao'],
+            'nome_social': response['nome_social'],
+            'nome_registro': response['nome_registro'],
+            'primeiro_nome': response['primeiro_nome'],
+            'ultimo_nome': response['ultimo_nome'],
+            'email_pessoal': response['email_secundario'],
+            'email_escolar': response['email_google_classroom'],
+            'email_academico': response['email_academico'],
+            'campus': response['campus'],
+            'foto': response['foto'],
+            'tipo_usuario': response['tipo_usuario'],
+            'cpf': response['cpf'],
+            'data_nascimento': response['data_de_nascimento'],
+            'sexo': response['sexo'],
+        }
+        if dados['nome_social']:
+            primeiro_nome, *_, ultimo_nome = dados['nome_social'].split()
+            dados['primeiro_nome'] = primeiro_nome
+            dados['ultimo_nome'] = ultimo_nome
+            dados['nome'] = f'{primeiro_nome} {ultimo_nome}'
+        else:
+            dados['nome'] = f'{response['primeiro_nome']} {response['ultimo_nome']}'
+        dados['foto'] = formatar_url_foto(dados['foto'])
+        if len(Usuario.objects.filter(pk=response['identificacao'])) == 0:
+            usuario = Usuario.objects.create(**dados)
+            # Validar se algum campo foi alterado
+            usuario.save()
         return {
             'username': response.get('identificacao'),
             'first_name': response.get('primeiro_nome'),
