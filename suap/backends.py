@@ -20,7 +20,6 @@ class SuapOAuth2(BaseOAuth2):
     ]
 
     def get_user_details(self, response):
-        # Validar se é do campus CN
         dados = {
             'matricula': response['identificacao'],
             'nome_social': response['nome_social'],

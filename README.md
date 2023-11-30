@@ -21,12 +21,12 @@ As ferramentas utilizadas na aplicação são mostradas na seguinte tabela, junt
 | Pacote                 | Versão             |
 |------------------------|--------------------|
 | Django                 | >= 4.2.7 e < 4.3   |
-| mysqlclient            | >= 2.2.0 e < 2.3   |
 | python-dotenv          | >= 1.0.0 e < 1.1   |
+| Pillow                 | >= 10.1.0 e < 10.2 |
+| mysqlclient            | >= 2.2.0 e < 2.3   |
+| mysql-connector-python | >= 8.2.0 e <8.3    |
 | social-auth-app-django | >= 5.4.0 e < 5.5   |
 | social-auth-core       | >= 4.5.0 e < 4.6   |
-| Pillow                 | >= 10.1.0 e < 10.2 |
-| mysql-connector-python | >= 8.2.0 e <8.3    |
 
 ## Padronização
 
@@ -47,3 +47,11 @@ O time do projeto é composto por 7 pessoas, separadas pelos cargos listados aba
 | Maria Gabriela    | Programadora Plena |
 | Jordan Cainã      | Programador Júnior |
 | Pedro Samuel      | Programador Júnior |
+
+## Afazeres
+
+- [x] Desenvolver a página de perfil do usuário.
+- [ ] Verificar se o usuário é do *campus* Currais Novos (CN).
+- [ ] Verificar se algum campo foi alterado quando usuários já autenticados fizerem login.
+- [ ] Implementar nos templates do projeto as páginas feitas externamente.
+- [ ] Desenvolver a página de treinos para que esta fique dinâmica e personalizável.
