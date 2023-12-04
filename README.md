@@ -78,6 +78,8 @@ pip install -r requirements.txt
 
 ## Padronização
 
+> Os pontos citados abaixo são válidos para a equipe de desenvolvedores.
+
 - As páginas HTML e as estilizações CSS devem ser armazenadas **somente** na pasta `pages`, e as imagens em `pages/img`. A criação de múltiplos arquivos ou diretórios é de livre escolha de cada desenvolvedor.
 - A utilização de `class` em vez `id`, tanto para elementos da página HTML, quanto para seletores CSS (salvo casos específicos).
 - A adoção de medidas inteiras, no lugar de números decimais, e as unidades `rem`, `%` e `px`. As demais unidades também podem ser utilizadas, mas não devem ser um padrão do projeto.
