@@ -194,6 +194,34 @@ a {
   height: 50rem;
 }
 
+/* HISTÓRIA */
+
+.secao {
+  padding-top: 10rem;
+  padding-bottom: 10rem;
+}
+
+.secao-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 10rem;
+}
+
+.texto-secao {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+.imagem-secao-historia {
+  border-radius: 3.5rem;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
 /* RODAPÉ */
 
 .rodape {
@@ -392,6 +420,11 @@ a {
   .menu {
     gap: 0;
     padding-right: 2.5rem;
+  }
+  .secao-grid {
+    grid-template-columns: none;
+    grid-template-rows: auto 1fr;
+    gap: 5rem;
   }
 }
 
