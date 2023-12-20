@@ -48,7 +48,7 @@ As ferramentas utilizadas na aplicação são mostradas na seguinte tabela, junt
 
 | Tecnologia | Versão |
 |------------|--------|
-| Python     | 3.12.0 |
+| Python     | 3.12.1 |
 | HTML       | 5      |
 | CSS        | 3      |
 
