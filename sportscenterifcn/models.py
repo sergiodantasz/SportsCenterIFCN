@@ -19,3 +19,8 @@ class Usuario(models.Model):
     sexo = models.CharField(max_length=15, null=False, blank=False)
     criado_em = models.DateTimeField(auto_now_add=True, null=False, blank=False)
     atualizado_em = models.DateTimeField(auto_now=True, null=False, blank=False)
+
+
+class Treino(models.Model):
+    esporte = models.CharField(max_length=50, null=False, blank=False)
+    dia_horario = models.CharField(max_length=100, null=False, blank=False)

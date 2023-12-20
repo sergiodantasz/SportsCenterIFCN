@@ -55,6 +55,10 @@ def treinos(request):
         contexto.update({
             'usuario': usuario
         })
+    treinos = models.Treino.objects.all()
+    contexto.update({
+        'treinos': treinos
+    })
     return render(
         request,
         'sportscenterifcn/pages/treinos.html',

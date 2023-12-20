@@ -4,18 +4,33 @@
 
 {% block conteudo %}
   <div class="fundo-branco">
-    <div class="secao-1 conteudo centro">
-      <h1>Seção 1</h1>
-    </div>
-  </div>
-  <div class="fundo-verde-escuro">
-    <div class="secao-2 conteudo centro">
-      <h1>Seção 2</h1>
-    </div>
-  </div>
-  <div class="fundo-branco">
-    <div class="secao-3 conteudo centro">
-      <h1>Seção 3</h1>
+    <div class="conteudo centro">
+      <div class="titulo-pagina">
+        <h1>Treinos</h1>
+        <hr>
+      </div>
+      {% if treinos|length > 0 %}
+        <div class="tabela-treinos-container">
+          <table class="tabela-treinos">
+            <thead class="cabecalho-tabela">
+              <tr>
+                <th>Esporte</th>
+                <th>Dia(s) e Horário(s)</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for treino in treinos %}
+                <tr>
+                  <td>{{ treino.esporte }}</td>
+                  <td>{{ treino.dia_horario }}</td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      {% else %}
+        <h2 class="nenhum-treino-cadastrado">Nenhum treino foi cadastrado.</h2>
+      {% endif %}
     </div>
   </div>
 {% endblock conteudo %}
