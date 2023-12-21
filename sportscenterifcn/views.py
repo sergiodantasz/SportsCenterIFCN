@@ -66,9 +66,17 @@ def treinos(request):
 
 
 def remover_treino(request, id):
+    if request.user.is_authenticated:
+        usuario = models.Usuario.objects.get(pk=request.user.username)
+        if usuario.permissao_administrador != 1:
+            return redirect(reverse('sportscenterifcn:treinos'))
     treino = models.Treino.objects.get(id=id)
     treino.delete()
     return redirect(reverse('sportscenterifcn:treinos'))
+
+
+def adicionar_treino(request):
+    return 
 
 
 def historia(request):
