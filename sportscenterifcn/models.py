@@ -17,6 +17,7 @@ class Usuario(models.Model):
     cpf = models.CharField(max_length=14, null=False, blank=False)
     data_nascimento = models.DateTimeField(null=False, blank=False)
     sexo = models.CharField(max_length=15, null=False, blank=False)
+    permissao_administrador = models.BooleanField(null=False, blank=False, default=False)
     criado_em = models.DateTimeField(auto_now_add=True, null=False, blank=False)
     atualizado_em = models.DateTimeField(auto_now=True, null=False, blank=False)
 

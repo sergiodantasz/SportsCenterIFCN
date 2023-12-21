@@ -1,5 +1,7 @@
 {% extends "sportscenterifcn/pages/base.html" %}
 
+{% load static %}
+
 {% block titulo %}Treinos - Sports Center IFCN{% endblock titulo %}
 
 {% block conteudo %}
@@ -21,8 +23,24 @@
             <tbody>
               {% for treino in treinos %}
                 <tr>
-                  <td>{{ treino.esporte }}</td>
-                  <td>{{ treino.dia_horario }}</td>
+                  <td class="coluna-esquerda">
+                    <div>
+                      {% if usuario.permissao_administrador %}
+                        <div class="icones">
+                          <a class="link-icone" href="">
+                            <img src="{% static "sportscenterifcn/icons/editar.png" %}" alt="Ícone de editar." class="icone">
+                          </a>
+                          <a class="link-icone" href="{% url "sportscenterifcn:remover_treino" treino.id %}">
+                            <img src="{% static "sportscenterifcn/icons/remover.png" %}" alt="Ícone de remover." class="icone">
+                          </a>
+                        </div>
+                      {% endif %}
+                      <p>{{ treino.esporte }}</p>
+                    </div>
+                  </td>
+                  <td class="coluna-direita">
+                    <p>{{ treino.dia_horario }}</p>
+                  </td>
                 </tr>
               {% endfor %}
             </tbody>
@@ -30,6 +48,14 @@
         </div>
       {% else %}
         <h2 class="nenhum-treino-cadastrado">Nenhum treino foi cadastrado.</h2>
+      {% endif %}
+      {% if usuario.permissao_administrador %}
+        <a href="">
+          <div class="botao-adicionar-treino">
+            <img src="{% static "sportscenterifcn/icons/adicionar.png" %}" alt="Ícone de adicionar." class="icone">
+            <h3>Adicionar Treino</h3>
+          </div>
+        </a>
       {% endif %}
     </div>
   </div>

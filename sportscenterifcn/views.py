@@ -1,6 +1,5 @@
 from django.contrib.auth import logout as auth_logout
-from django.http import HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.urls import reverse
 
 from sportscenterifcn import models
@@ -66,6 +65,12 @@ def treinos(request):
     )
 
 
+def remover_treino(request, id):
+    treino = models.Treino.objects.get(id=id)
+    treino.delete()
+    return redirect(reverse('sportscenterifcn:treinos'))
+
+
 def historia(request):
     contexto = {}
     if request.user.is_authenticated:
@@ -82,7 +87,7 @@ def historia(request):
 
 def login(request):
     if request.user.is_authenticated:
-        return HttpResponseRedirect(reverse('sportscenterifcn:perfil'))
+        return redirect(reverse('sportscenterifcn:perfil'))
     return render(
         request,
         'sportscenterifcn/pages/login.html',
@@ -91,7 +96,7 @@ def login(request):
 
 def perfil(request):
     if not request.user.is_authenticated:
-        return HttpResponseRedirect(reverse('sportscenterifcn:login'))
+        return redirect(reverse('sportscenterifcn:login'))
     usuario = models.Usuario.objects.get(pk=request.user.username)
     return render(
         request,
@@ -103,10 +108,10 @@ def perfil(request):
 
 
 def redirecionar_perfil(request):
-    return HttpResponseRedirect(reverse('sportscenterifcn:perfil'))
+    return redirect(reverse('sportscenterifcn:perfil'))
 
 
 def logout(request):
     if request.user.is_authenticated:
         auth_logout(request)
-    return HttpResponseRedirect(reverse('sportscenterifcn:inicio'))
+    return redirect(reverse('sportscenterifcn:inicio'))
