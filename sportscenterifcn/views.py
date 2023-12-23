@@ -1,5 +1,5 @@
 from django.contrib.auth import logout as auth_logout
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 
 from sportscenterifcn import forms, models
@@ -70,7 +70,7 @@ def remover_treino(request, id):
         usuario = models.Usuario.objects.get(pk=request.user.username)
         if usuario.permissao_administrador != 1:
             return redirect(reverse('sportscenterifcn:treinos'))
-    treino = models.Treino.objects.get(id=id)
+    treino = get_object_or_404(models.Treino, id=id)
     treino.delete()
     return redirect(reverse('sportscenterifcn:treinos'))
 
@@ -104,9 +104,6 @@ def adicionar_treino_salvar(request):
     form = forms.TreinoForm(request.POST)
     if form.is_valid():
         form.save()
-    else:
-        # TODO: Inserir mensagens de erro na página.
-        pass
     return redirect(reverse('sportscenterifcn:treinos'))
 
 
@@ -119,7 +116,7 @@ def editar_treino(request, id):
         contexto.update({
             'usuario': usuario
         })
-    treino = models.Treino.objects.get(id=id)
+    treino = get_object_or_404(models.Treino, id=id)
     form = forms.TreinoForm(instance=treino)
     contexto.update({
         'form': form,
@@ -139,13 +136,10 @@ def editar_treino_salvar(request, id):
         usuario = models.Usuario.objects.get(pk=request.user.username)
         if usuario.permissao_administrador != 1:
             return redirect(reverse('sportscenterifcn:treinos'))
-    treino = models.Treino.objects.get(id=id)
+    treino = get_object_or_404(models.Treino, id=id)
     form = forms.TreinoForm(request.POST, instance=treino)
     if form.is_valid():
         form.save()
-    else:
-        # TODO: Inserir mensagens de erro na página.
-        pass
     return redirect(reverse('sportscenterifcn:treinos'))
 
 
