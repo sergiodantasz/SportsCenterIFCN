@@ -33,12 +33,6 @@ Feitos esses procedimentos, é só fazer as migrações e coletar os arquivos es
 Pronto, agora o projeto já pode ser executado com o comando abaixo.
 
 ```bash
-python manage.py runserver
-```
-
-Ou, se preferir...
-
-```bash
 . scripts/runserver.sh
 ```
 
@@ -76,14 +70,6 @@ Com o ambiente virtual ativado, execute o comando abaixo no terminal.
 pip install -r requirements.txt
 ```
 
-## Padronização
-
-> Os pontos citados abaixo são válidos para a equipe de desenvolvedores.
-
-- As páginas HTML e as estilizações CSS devem ser armazenadas **somente** na pasta `pages`, e as imagens em `pages/img`. A criação de múltiplos arquivos ou diretórios é de livre escolha de cada desenvolvedor.
-- A utilização de `class` em vez `id`, tanto para elementos da página HTML, quanto para seletores CSS (salvo casos específicos).
-- A adoção de medidas inteiras, no lugar de números decimais, e as unidades `rem`, `%` e `px`. As demais unidades também podem ser utilizadas, mas não devem ser um padrão do projeto.
-
 ## Equipe
 
 O time do projeto é composto por 7 pessoas, separadas pelos cargos listados abaixo.
@@ -97,11 +83,3 @@ O time do projeto é composto por 7 pessoas, separadas pelos cargos listados aba
 | Maria Gabriela    | Programadora Plena |
 | Jordan Cainã      | Programador Júnior |
 | Pedro Samuel      | Programador Júnior |
-
-## Afazeres
-
-- [x] Desenvolver a página de perfil do usuário.
-- [ ] Verificar se o usuário é do *campus* Currais Novos (CN).
-- [ ] Verificar se algum campo foi alterado quando usuários já autenticados fizerem login.
-- [ ] Implementar nos templates do projeto as páginas feitas externamente.
-- [ ] Desenvolver a página de treinos para que esta fique dinâmica e personalizável.
