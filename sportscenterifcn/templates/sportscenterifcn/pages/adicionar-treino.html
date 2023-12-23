@@ -1,0 +1,29 @@
+{% extends "sportscenterifcn/pages/base.html" %}
+
+{% load static %}
+
+{% block titulo %}Treinos - Adicionar - Sports Center IFCN{% endblock titulo %}
+
+{% block conteudo %}
+  <div class="conteudo fundo-branco">
+    <header class="cabecalho">
+      <h1>Adicionar Treino</h1>
+      <div class="barra"></div>
+    </header>
+    <div class="centro">
+      <form class="formulario-treino" action="{{ form_action }}" method="POST">
+        {% csrf_token %}
+        {% for campo in form %}
+          <div class="grupo-campo">
+            <label class="bold" for="{{ campo.id_for_label }}">{{ campo.label }}</label>
+            {{ campo }}
+          </div>
+        {% endfor %}
+        <div class="botoes-formulario">
+          <a class="botao-link" href="{% url "sportscenterifcn:treinos" %}">Cancelar</a>
+          <button class="botao" type="submit">Salvar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+{% endblock conteudo %}

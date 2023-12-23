@@ -20,6 +20,9 @@ html {
 body {
   font-family: 'Gabarito', sans-serif;
   font-size: 2rem;
+  position: relative;
+  min-height: 100vh;
+  margin: 0;
 }
 
 a {
@@ -41,6 +44,10 @@ h3 {
 
 a {
   color: inherit;
+}
+
+.pagina-atual {
+  color: var(--cor-verde);
 }
 
 .regular {
@@ -225,22 +232,6 @@ a {
 
 /* TREINOS */
 
-.titulo-pagina {
-  width: 100%;
-  margin-bottom: 10rem;
-  padding-top: 5rem;
-}
-
-.titulo-pagina h1 {
-  margin-bottom: 1.5rem;
-}
-
-.titulo-pagina hr {
-  border: none;
-  background-color: var(--cor-verde);
-  height: 0.3rem;
-}
-
 .tabela-treinos-container {
   width: 100%;
   border: 0.3rem solid var(--cor-verde);
@@ -255,6 +246,10 @@ a {
 .cabecalho-tabela {
   background-color: var(--cor-verde);
   color: var(--cor-branca);
+}
+
+.tabela-treinos p {
+  word-break: break-all;
 }
 
 .tabela-treinos td, .tabela-treinos th {
@@ -294,6 +289,7 @@ a {
 .coluna-esquerda p {
   margin: 0 auto;
   text-align: center;
+  padding-left: 0.5rem;
 }
 
 .icones {
@@ -343,10 +339,54 @@ a {
   filter: brightness(0) saturate(100%) invert(16%) sepia(46%) saturate(714%) hue-rotate(82deg) brightness(98%) contrast(91%);
 }
 
+/* ADICIONAR TREINO */
+
+.formulario-treino {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 5rem;
+  margin-bottom: 5rem;
+}
+
+.grupo-campo {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  gap: 2rem;
+}
+
+.grupo-campo label {
+  font-size: 2.8rem;
+}
+
+.grupo-campo input {
+  border: 0.3rem solid var(--cor-verde);
+  font-size: 2rem;
+  padding: 1rem;
+  border-radius: 1rem;
+  outline: none;
+  transition: all 150ms ease-in-out;
+}
+
+.grupo-campo input:focus {
+  border-color: var(--cor-verde-escura);
+}
+
+.botoes-formulario {
+  display: flex;
+  justify-content: flex-end;
+  gap: 3rem;
+}
+
 /* RODAPÉ */
 
 .rodape {
   border-radius: 5rem 5rem 0 0;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  min-width: 100vw;
 }
 
 .rodape > .conteudo {
@@ -443,21 +483,21 @@ a {
 
 /* PERFIL */
 
-.cabecalho-perfil {
+.cabecalho {
   padding-top: 5rem;
   display: flex;
   flex-direction: column;
   gap: 2.5rem;
   text-align: center;
   justify-content: center;
+  margin-bottom: 5rem;
 }
 
-.cabecalho-perfil > .barra, .informacoes-usuario + .barra {
+.cabecalho > .barra, .informacoes-usuario + .barra {
   margin: 0;
 }
 
 .informacoes-usuario {
-  padding-top: 5rem;
   padding-bottom: 5rem;
 }
 
@@ -488,7 +528,8 @@ a {
   margin-bottom: 5rem;
 }
 
-.botao-sair {
+.botao,
+.botao-link {
   background-color: var(--cor-verde);
   color: var(--cor-branca);
   height: 5rem;
@@ -497,10 +538,15 @@ a {
   font-weight: 700;
   font-size: 2rem;
   transition: all 150ms ease-in-out;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
+  font-family: 'Gabarito', sans-serif;
 }
 
-.botao-sair:hover {
+.botao:hover,
+.botao-link:hover {
   background-color: var(--cor-verde-escura);
 }
 
