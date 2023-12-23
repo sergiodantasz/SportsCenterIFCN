@@ -5,7 +5,7 @@
 {% block conteudo %}
   {% if user.is_authenticated %}
     <div class="conteudo fundo-branco">
-      <header class="cabecalho-perfil">
+      <header class="cabecalho">
         <h1>Perfil</h1>
         <div class="barra"></div>
       </header>
@@ -48,15 +48,17 @@
       <div class="barra"></div>
       <form id="form-sair" class="form-sair" method="post" action="{% url 'sportscenterifcn:logout' %}">
         {% csrf_token %}
-        <button class="botao-sair" type="submit">Sair</button>
+        <button class="botao botao-sair" type="submit">Sair</button>
       </form>
     </div>
-    <script>
-      $("#form-sair").submit(function(event) {
-        event.preventDefault();
-        window.location.href="https://suap.ifrn.edu.br/accounts/logout/";
-        this.submit();
-      });
-    </script>
+    {% if not user.is_authenticated %}
+      <script>
+        $("#form-sair").submit(function(event) {
+          event.preventDefault();
+          window.location.href="https://suap.ifrn.edu.br/accounts/logout/";
+          this.submit();
+        });
+      </script>
+    {% endif %}
   {% endif %}
 {% endblock conteudo %}
