@@ -24,4 +24,4 @@ class Usuario(models.Model):
 
 class Treino(models.Model):
     esporte = models.CharField(max_length=50, null=False, blank=False)
-    dia_horario = models.CharField(max_length=100, null=False, blank=False)
+    dia_horario = models.CharField(max_length=50, null=False, blank=False)
