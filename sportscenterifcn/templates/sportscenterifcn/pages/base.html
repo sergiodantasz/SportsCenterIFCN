@@ -1,7 +1,10 @@
 {% extends "global/pages/base.html" %}
 
+{% load static %}
+
 {% block pagina %}
   {% include "sportscenterifcn/partials/_barra_navegacao.html" %}
   {% block conteudo %}{% endblock conteudo %}
   {% include "sportscenterifcn/partials/_rodape.html" %}
+  <script src="{% static "sportscenterifcn/js/script.js" %}"></script>
 {% endblock pagina %}

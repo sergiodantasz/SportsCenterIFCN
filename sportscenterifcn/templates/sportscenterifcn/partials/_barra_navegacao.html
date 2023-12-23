@@ -4,11 +4,11 @@
   <div class="conteudo">
     <img class="logo" src="{% static "global/img/logo.png" %}" alt="Logo do Sports Center IFCN.">
     <ul class="menu">
-      <li><a href="{% url "sportscenterifcn:inicio" %}">Início</a></li>
-      <li><a href="{% url "sportscenterifcn:noticias" %}">Notícias</a></li>
-      <li><a href="{% url "sportscenterifcn:arquivos" %}">Arquivos</a></li>
-      <li><a href="{% url "sportscenterifcn:treinos" %}">Treinos</a></li>
-      <li><a href="{% url "sportscenterifcn:historia" %}">História</a></li>
+      <li id="inicio"><a href="{% url "sportscenterifcn:inicio" %}">Início</a></li>
+      <li id="noticias"><a href="{% url "sportscenterifcn:noticias" %}">Notícias</a></li>
+      <li id="arquivos"><a href="{% url "sportscenterifcn:arquivos" %}">Arquivos</a></li>
+      <li id="treinos"><a href="{% url "sportscenterifcn:treinos" %}">Treinos</a></li>
+      <li id="historia"><a href="{% url "sportscenterifcn:historia" %}">História</a></li>
     </ul>
     {% if user.is_authenticated %}
       <a class="login" href="{% url "sportscenterifcn:perfil" %}">
