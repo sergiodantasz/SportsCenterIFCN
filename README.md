@@ -83,3 +83,9 @@ O time do projeto é composto por 7 pessoas, separadas pelos cargos listados aba
 | Maria Gabriela    | Programadora Plena |
 | Jordan Cainã      | Programador Júnior |
 | Pedro Samuel      | Programador Júnior |
+
+## Afazeres
+
+- [ ] Desenvolver a página de arquivos.
+- [ ] Desenvolver a página de início.
+- [ ] Verificar se o usuário é do campus CN.
