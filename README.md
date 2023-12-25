@@ -20,7 +20,7 @@ Agora, ative o ambiente virtual.
 . venv/bin/activate
 ```
 
-Em seguida, instale os pacotes necessários, como mostrado na seção de [Dependências](#dependências).
+Em seguida, instale os pacotes necessários, como mostrado na seção de [dependências](#dependências).
 
 > Certifique-se de configurar corretamente o arquivo `.env`.
 
