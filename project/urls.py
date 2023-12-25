@@ -23,6 +23,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('sportscenterifcn.urls')),
     path('', include('social_django.urls'), name='social'),
+    path('summernote/', include('django_summernote.urls')),
 ]
 
 urlpatterns += static(

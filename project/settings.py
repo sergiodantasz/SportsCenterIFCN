@@ -17,7 +17,6 @@ from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-DATA_DIR = BASE_DIR / 'data'
 
 load_dotenv(BASE_DIR / '.env', override=True)
 
@@ -50,6 +49,9 @@ INSTALLED_APPS = [
 
     # Sports Center IFCN
     'sportscenterifcn',
+
+    # Django Summernote
+    'django_summernote',
 ]
 
 MIDDLEWARE = [
@@ -153,7 +155,7 @@ STATICFILES_DIRS = [
 STATIC_ROOT = BASE_DIR / 'static'
 
 MEDIA_URL = 'media/'
-MEDIA_ROOT = DATA_DIR / 'media'
+MEDIA_ROOT = BASE_DIR / 'media'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
@@ -164,3 +166,15 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Chaves da aplicação SUAP
 SOCIAL_AUTH_SUAP_KEY=getenv('SOCIAL_AUTH_SUAP_KEY', '')
 SOCIAL_AUTH_SUAP_SECRET=getenv('SOCIAL_AUTH_SUAP_SECRET', '')
+
+
+# Django Summernote
+SUMMERNOTE_CONFIG = {
+    'summernote': {
+        'width': '100%',
+        'height': '800px',
+        'lang': 'pt-BR',
+    },
+    'attachment_filesize_limit': 30 * 1024 * 1024,
+    'attachment_upload_to': 'noticias/anexos/',
+}

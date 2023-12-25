@@ -50,15 +50,15 @@ As ferramentas utilizadas na aplicação são mostradas na seguinte tabela, junt
 
 O projeto possui algumas dependências, as quais estão dispostas na tabela abaixo.
 
-| Pacote                 | Versão             |
-|------------------------|--------------------|
-| Django                 | >= 4.2.7 e < 4.3   |
-| python-dotenv          | >= 1.0.0 e < 1.1   |
-| Pillow                 | >= 10.1.0 e < 10.2 |
-| mysqlclient            | >= 2.2.0 e < 2.3   |
-| mysql-connector-python | >= 8.2.0 e < 8.3   |
-| social-auth-app-django | >= 5.4.0 e < 5.5   |
-| social-auth-core       | >= 4.5.0 e < 4.6   |
+| Pacote                 | Versão              |
+|------------------------|---------------------|
+| Django                 | >= 4.2.7 e < 4.3    |
+| python-dotenv          | >= 1.0.0 e < 1.1    |
+| Pillow                 | >= 10.1.0 e < 10.2  |
+| mysqlclient            | >= 2.2.0 e < 2.3    |
+| mysql-connector-python | >= 8.2.0 e < 8.3    |
+| social-auth-app-django | >= 5.4.0 e < 5.5    |
+| django-summernote      | >= 0.8.20.0 e < 0.9 |
 
 Elas devem ser instaladas utilizando o gerenciador de pacotes do Python, o PyPI.
 

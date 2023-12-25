@@ -5,3 +5,4 @@ mysqlclient>=2.2.0,<2.3
 mysql-connector-python>=8.2.0,<8.3
 social-auth-app-django>=5.4.0,<5.5
 social-auth-core>=4.5.0,<4.6
+django-summernote>=0.8.20.0,<0.9

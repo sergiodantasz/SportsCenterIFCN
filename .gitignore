@@ -3,9 +3,9 @@
 *.pot
 *.pyc
 __pycache__
-/data
 local_settings.py
 /static
+/media
 
 # Backup files #
 *.bak
