@@ -76,6 +76,17 @@ def adicionar_noticia(request):
     )
 
 
+def adicionar_noticia_salvar(request):
+    if request.user.is_authenticated:
+        usuario = models.Usuario.objects.get(pk=request.user.username)
+        if usuario.permissao_administrador != 1:
+            return redirect(reverse('sportscenterifcn:noticias'))
+    form = forms.NoticiaForm(request.POST, request.FILES)
+    if form.is_valid():
+        form.save()
+    return redirect(reverse('sportscenterifcn:noticias'))
+
+
 def editar_noticia(request, slug):
     contexto = {}
     if request.user.is_authenticated:
@@ -119,17 +130,6 @@ def remover_noticia(request, slug):
             return redirect(reverse('sportscenterifcn:noticias'))
     noticia = get_object_or_404(models.Noticia, slug=slug)
     noticia.delete()
-    return redirect(reverse('sportscenterifcn:noticias'))
-
-
-def adicionar_noticia_salvar(request):
-    if request.user.is_authenticated:
-        usuario = models.Usuario.objects.get(pk=request.user.username)
-        if usuario.permissao_administrador != 1:
-            return redirect(reverse('sportscenterifcn:noticias'))
-    form = forms.NoticiaForm(request.POST, request.FILES)
-    if form.is_valid():
-        form.save()
     return redirect(reverse('sportscenterifcn:noticias'))
 
 
