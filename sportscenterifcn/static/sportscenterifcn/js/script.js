@@ -15,7 +15,6 @@ function destacarPaginaAtualBarraNavegacao() {
 function atualizarAlturaRodape() {
   let rodape = document.getElementById('rodape');
   let altura = rodape.getBoundingClientRect().height;
-  console.log(altura);
   rodape.style.bottom = -altura + 'px';
 }
 
