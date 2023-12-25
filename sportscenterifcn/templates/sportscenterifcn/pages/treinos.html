@@ -27,10 +27,10 @@
                     <div>
                       {% if usuario.permissao_administrador %}
                         <div class="icones">
-                          <a class="link-icone" href="{% url "sportscenterifcn:editar_treino" treino.id %}">
+                          <a class="link-icone" href="{% url "sportscenterifcn:editar_treino" treino.slug %}">
                             <img src="{% static "sportscenterifcn/icons/editar.png" %}" alt="Ícone de editar." class="icone">
                           </a>
-                          <a class="link-icone" href="{% url "sportscenterifcn:remover_treino" treino.id %}">
+                          <a class="link-icone" href="{% url "sportscenterifcn:remover_treino" treino.slug %}">
                             <img src="{% static "sportscenterifcn/icons/remover.png" %}" alt="Ícone de remover." class="icone">
                           </a>
                         </div>
@@ -47,11 +47,11 @@
           </table>
         </div>
       {% else %}
-        <h3 class="nenhum-treino-cadastrado">Nenhum treino foi cadastrado.</h3>
+        <h3 class="nada-existente">Nenhum treino foi cadastrado.</h3>
       {% endif %}
       {% if usuario.permissao_administrador %}
         <a href="{% url "sportscenterifcn:adicionar_treino" %}">
-          <div class="botao-adicionar-treino">
+          <div class="botao-acao-adm">
             <img src="{% static "sportscenterifcn/icons/adicionar.png" %}" alt="Ícone de adicionar." class="icone">
             <h3>Adicionar Treino</h3>
           </div>

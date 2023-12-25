@@ -1,21 +1,40 @@
 {% extends "sportscenterifcn/pages/base.html" %}
 
+{% load static %}
+
 {% block titulo %}Notícias - Sports Center IFCN{% endblock titulo %}
 
 {% block conteudo %}
-  <div class="fundo-branco">
-    <div class="secao-1 conteudo centro">
-      <h1>Seção 1</h1>
-    </div>
-  </div>
-  <div class="fundo-verde-escuro">
-    <div class="secao-2 conteudo centro">
-      <h1>Seção 2</h1>
-    </div>
-  </div>
-  <div class="fundo-branco">
-    <div class="secao-3 conteudo centro">
-      <h1>Seção 3</h1>
+  <div class="conteudo fundo-branco">
+    <header class="cabecalho">
+      <h1>Notícias</h1>
+      <div class="barra"></div>
+    </header>
+    <div class="centro">
+      {% if usuario.permissao_administrador %}
+        <a href="{% url "sportscenterifcn:adicionar_noticia" %}">
+          <div class="botao-acao-adm">
+            <img src="{% static "sportscenterifcn/icons/adicionar.png" %}" alt="Ícone de adicionar." class="icone">
+            <h3>Adicionar Notícia</h3>
+          </div>
+        </a>
+      {% endif %}
+      {% if noticias|length > 0 %}
+        <section class="noticias">
+          {% for noticia in noticias %}
+            <a href="{% url "sportscenterifcn:visualizar_noticia" noticia.slug %}" class="noticia">
+              <img src="{{ noticia.capa.url }}" alt="Capa da notícia." class="capa-noticia">
+              <div class="informacoes-noticia">
+                <h3 class="titulo-noticia">{{ noticia.titulo }}</h3>
+                <p class="excerto">{{ noticia.excerto }}</p>
+                <p class="data-publicacao-noticia">{{ noticia.criada_em|date:"d/m/Y" }} - {{ noticia.criada_em|date:"H\hi\m\i\n" }}</p>
+              </div>
+            </a>
+          {% endfor %}
+        </section>
+      {% else %}
+        <h3 class="nada-existente">Nenhuma notícia foi cadastrada.</h3>
+      {% endif %}
     </div>
   </div>
 {% endblock conteudo %}

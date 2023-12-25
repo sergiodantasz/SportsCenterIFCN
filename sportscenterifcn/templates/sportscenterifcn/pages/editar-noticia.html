@@ -1,0 +1,52 @@
+{% extends "sportscenterifcn/pages/base.html" %}
+
+{% load static %}
+
+{% block titulo %}Notícias - Editar - Sports Center IFCN{% endblock titulo %}
+
+{% block conteudo %}
+  <div class="conteudo fundo-branco">
+    <header class="cabecalho">
+      <h1>Editar Notícia</h1>
+      <div class="barra"></div>
+    </header>
+    <div class="centro">
+      <form class="formulario form-editar-noticia" action="{{ form_action }}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% for campo in form %}
+          <div class="grupo-campo">
+            {% if campo.label == "Capa" %}
+              <label class="label-capa bold" for="{{ campo.id_for_label }}">
+                <img class="icone" src="{% static "sportscenterifcn/icons/upload.png" %}" alt="Ícone de upload.">
+                <h3 id="texto-label-capa">Selecionar arquivo para capa...</h3>
+              </label>
+              {{ campo|safe }}
+            {% else %}
+              <label class="bold" for="{{ campo.id_for_label }}">{{ campo.label }}</label>
+              {{ campo }}
+            {% endif %}
+          </div>
+        {% endfor %}
+        <div class="botoes-formulario">
+          <a class="botao-link" href="{% url "sportscenterifcn:noticias" %}">Cancelar</a>
+          <button class="botao" type="submit">Salvar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <script>
+    let inputCapa = document.getElementById('id_capa');
+    let textoLabelCapa = document.getElementById('texto-label-capa');
+    inputCapa.addEventListener('change', function() {
+      if (inputCapa.files.length == 1) {
+        textoLabelCapa.textContent = inputCapa.files[0].name;
+      } else {
+        textoLabelCapa.textContent = 'Selecionar arquivo para capa...';
+      }
+    })
+    let grupoCampoInputCapa = inputCapa.parentNode;
+    grupoCampoInputCapa.innerHTML = grupoCampoInputCapa.innerHTML.replace('<br>\nModificar:', '');
+    let linkCapaAtual = document.querySelector('.label-capa + a');
+    linkCapaAtual.setAttribute('target', '_blank');
+  </script>
+{% endblock conteudo %}

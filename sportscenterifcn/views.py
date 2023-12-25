@@ -26,11 +26,111 @@ def noticias(request):
         contexto.update({
             'usuario': usuario
         })
+    noticias = models.Noticia.objects.all()
+    contexto.update({
+        'noticias': noticias
+    })
     return render(
         request,
         'sportscenterifcn/pages/noticias.html',
         contexto
     )
+
+
+def visualizar_noticia(request, slug):
+    contexto = {}
+    if request.user.is_authenticated:
+        usuario = models.Usuario.objects.get(pk=request.user.username)
+        contexto.update({
+            'usuario': usuario
+        })
+    noticia = get_object_or_404(models.Noticia, slug=slug)
+    contexto.update({
+        'noticia': noticia
+    })
+    return render(
+        request,
+        'sportscenterifcn/pages/visualizar-noticia.html',
+        contexto
+    )
+
+
+def adicionar_noticia(request):
+    contexto = {}
+    if request.user.is_authenticated:
+        usuario = models.Usuario.objects.get(pk=request.user.username)
+        if usuario.permissao_administrador != 1:
+            return redirect(reverse('sportscenterifcn:noticias'))
+        contexto.update({
+            'usuario': usuario
+        })
+    form = forms.NoticiaForm()
+    contexto.update({
+        'form': form,
+        'form_action': reverse('sportscenterifcn:adicionar_noticia_salvar')
+    })
+    return render(
+        request,
+        'sportscenterifcn/pages/adicionar-noticia.html',
+        contexto
+    )
+
+
+def editar_noticia(request, slug):
+    contexto = {}
+    if request.user.is_authenticated:
+        usuario = models.Usuario.objects.get(pk=request.user.username)
+        if usuario.permissao_administrador != 1:
+            return redirect(reverse('sportscenterifcn:noticias'))
+        contexto.update({
+            'usuario': usuario
+        })
+    noticia = get_object_or_404(models.Noticia, slug=slug)
+    form = forms.NoticiaForm(instance=noticia)
+    contexto.update({
+        'form': form,
+        'form_action': reverse(
+            'sportscenterifcn:editar_noticia_salvar', kwargs={'slug': slug}
+        ),
+    })
+    return render(
+        request,
+        'sportscenterifcn/pages/editar-noticia.html',
+        contexto
+    )
+
+
+def editar_noticia_salvar(request, slug):
+    if request.user.is_authenticated:
+        usuario = models.Usuario.objects.get(pk=request.user.username)
+        if usuario.permissao_administrador != 1:
+            return redirect(reverse('sportscenterifcn:noticias'))
+    noticia = get_object_or_404(models.Noticia, slug=slug)
+    form = forms.NoticiaForm(request.POST, request.FILES, instance=noticia)
+    if form.is_valid():
+        form.save()
+    return redirect(reverse('sportscenterifcn:noticias'))
+
+
+def remover_noticia(request, slug):
+    if request.user.is_authenticated:
+        usuario = models.Usuario.objects.get(pk=request.user.username)
+        if usuario.permissao_administrador != 1:
+            return redirect(reverse('sportscenterifcn:noticias'))
+    noticia = get_object_or_404(models.Noticia, slug=slug)
+    noticia.delete()
+    return redirect(reverse('sportscenterifcn:noticias'))
+
+
+def adicionar_noticia_salvar(request):
+    if request.user.is_authenticated:
+        usuario = models.Usuario.objects.get(pk=request.user.username)
+        if usuario.permissao_administrador != 1:
+            return redirect(reverse('sportscenterifcn:noticias'))
+    form = forms.NoticiaForm(request.POST, request.FILES)
+    if form.is_valid():
+        form.save()
+    return redirect(reverse('sportscenterifcn:noticias'))
 
 
 def arquivos(request):
@@ -65,12 +165,12 @@ def treinos(request):
     )
 
 
-def remover_treino(request, id):
+def remover_treino(request, slug):
     if request.user.is_authenticated:
         usuario = models.Usuario.objects.get(pk=request.user.username)
         if usuario.permissao_administrador != 1:
             return redirect(reverse('sportscenterifcn:treinos'))
-    treino = get_object_or_404(models.Treino, id=id)
+    treino = get_object_or_404(models.Treino, slug=slug)
     treino.delete()
     return redirect(reverse('sportscenterifcn:treinos'))
 
@@ -107,7 +207,7 @@ def adicionar_treino_salvar(request):
     return redirect(reverse('sportscenterifcn:treinos'))
 
 
-def editar_treino(request, id):
+def editar_treino(request, slug):
     contexto = {}
     if request.user.is_authenticated:
         usuario = models.Usuario.objects.get(pk=request.user.username)
@@ -116,12 +216,12 @@ def editar_treino(request, id):
         contexto.update({
             'usuario': usuario
         })
-    treino = get_object_or_404(models.Treino, id=id)
+    treino = get_object_or_404(models.Treino, slug=slug)
     form = forms.TreinoForm(instance=treino)
     contexto.update({
         'form': form,
         'form_action': reverse(
-            'sportscenterifcn:editar_treino_salvar', kwargs={'id': id}
+            'sportscenterifcn:editar_treino_salvar', kwargs={'slug': slug}
         ),
     })
     return render(
@@ -131,12 +231,12 @@ def editar_treino(request, id):
     )
 
 
-def editar_treino_salvar(request, id):
+def editar_treino_salvar(request, slug):
     if request.user.is_authenticated:
         usuario = models.Usuario.objects.get(pk=request.user.username)
         if usuario.permissao_administrador != 1:
             return redirect(reverse('sportscenterifcn:treinos'))
-    treino = get_object_or_404(models.Treino, id=id)
+    treino = get_object_or_404(models.Treino, slug=slug)
     form = forms.TreinoForm(request.POST, instance=treino)
     if form.is_valid():
         form.save()

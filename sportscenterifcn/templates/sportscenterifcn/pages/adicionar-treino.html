@@ -11,7 +11,7 @@
       <div class="barra"></div>
     </header>
     <div class="centro">
-      <form class="formulario-treino" action="{{ form_action }}" method="POST">
+      <form class="formulario" action="{{ form_action }}" method="POST">
         {% csrf_token %}
         {% for campo in form %}
           <div class="grupo-campo">
