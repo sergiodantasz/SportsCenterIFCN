@@ -1,7 +1,9 @@
+from datetime import datetime
+
+from django.utils.timezone import make_aware
 from social_core.backends.oauth import BaseOAuth2
 
 from sportscenterifcn.models import Usuario
-
 from utils.usuario import formatar_url_foto
 
 
@@ -44,10 +46,21 @@ class SuapOAuth2(BaseOAuth2):
         else:
             dados['nome'] = f'{response['primeiro_nome']} {response['ultimo_nome']}'
         dados['foto'] = formatar_url_foto(dados['foto'])
+        data_nascimento = make_aware(datetime.strptime(dados['data_nascimento'], '%Y-%m-%d'))
+        dados['data_nascimento'] = data_nascimento
         if len(Usuario.objects.filter(pk=response['identificacao'])) == 0:
             usuario = Usuario.objects.create(**dados)
-            # Validar se algum campo foi alterado
             usuario.save()
+        else:
+            campos = (
+                'matricula', 'nome_social', 'nome_registro', 'primeiro_nome',
+                'ultimo_nome', 'email_pessoal', 'email_escolar', 'email_academico',
+                'campus', 'foto', 'tipo_usuario', 'cpf', 'data_nascimento', 'sexo'
+            )
+            usuario = Usuario.objects.get(pk=response['identificacao'])
+            for campo in campos:
+                if getattr(usuario, campo) != dados[campo]:
+                    setattr(usuario, campo, dados[campo])
         return {
             'username': response.get('identificacao'),
             'first_name': response.get('primeiro_nome'),
