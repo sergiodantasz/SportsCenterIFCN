@@ -1,7 +1,7 @@
 {% load static %}
 
 <aside class="barra-navegacao fundo-branco">
-  <div class="conteudo">
+  <nav class="conteudo nav-barra-navegacao">
     <img class="logo" src="{% static "global/img/logo.png" %}" alt="Logo do Sports Center IFCN.">
     <ul class="menu">
       <li id="inicio"><a href="{% url "sportscenterifcn:inicio" %}">Início</a></li>
@@ -21,5 +21,10 @@
         <p>Login</p>
       </a>
     {% endif %}
+  </nav>
+  <div class="menu-mobile">
+    <span class="bar"></span>
+    <span class="bar"></span>
+    <span class="bar"></span>
   </div>
 </aside>
