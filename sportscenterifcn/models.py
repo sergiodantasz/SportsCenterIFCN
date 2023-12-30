@@ -55,7 +55,7 @@ class Noticia(models.Model):
 
 
 class Arquivo(models.Model):
-    capa = models.ImageField(max_length=240, upload_to=gerar_caminho_capa, null=False, blank=False)
+    capa = models.ImageField(max_length=240, null=False, blank=False)
     titulo = models.CharField(max_length=200, null=False, blank=False)
     slug = models.SlugField(max_length=220, unique=True)
     criado_em = models.DateTimeField(auto_now_add=True, null=False, blank=False)
