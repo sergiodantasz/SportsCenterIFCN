@@ -11,7 +11,7 @@
         <div class="informacoes-arquivo">
           <h2 class="titulo-arquivo">{{ arquivo.titulo }}</h2>
           <p class="data-publicacao-arquivo">
-            Publicada por {{ arquivo.administrador.usuario.nome }} em {{ arquivo.criado_em|date:"d/m/Y" }} às {{ arquivo.criado_em|date:"H\hi\m\i\n" }}
+            Publicado por {{ arquivo.administrador.usuario.nome }} em {{ arquivo.criado_em|date:"d/m/Y" }} às {{ arquivo.criado_em|date:"H\hi\m\i\n" }}
             {% if arquivo.criado_em|date:"d/m/Y H:i" != arquivo.atualizado_em|date:"d/m/Y H:i" %}
               | Atualizado em {{ arquivo.atualizado_em|date:"d/m/Y" }} às {{ arquivo.atualizado_em|date:"H\hi\m\i\n" }}
             {% endif %}
