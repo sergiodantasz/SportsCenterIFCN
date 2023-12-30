@@ -37,7 +37,7 @@ def criar_paginacao(request, queryset, per_page):
     page_obj = paginator.get_page(current_page)
     pagination_range = criar_range_paginacao(
         range_paginas=paginator.page_range,
-        qtd_paginas=5,
+        qtd_paginas=6,
         pagina_atual=current_page
     )
     return page_obj, pagination_range
