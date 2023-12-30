@@ -176,5 +176,5 @@ SUMMERNOTE_CONFIG = {
         'lang': 'pt-BR',
     },
     'attachment_filesize_limit': 30 * 1024 * 1024,
-    'attachment_upload_to': 'noticias/anexos/',
+    'attachment_upload_to': 'anexos/noticias/',
 }
