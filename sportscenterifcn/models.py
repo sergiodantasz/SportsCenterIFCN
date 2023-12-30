@@ -30,7 +30,7 @@ class Treino(models.Model):
     esporte = models.CharField(max_length=50, null=False, blank=False)
     dia_horario = models.CharField(max_length=50, null=False, blank=False)
     slug = models.SlugField(max_length=70, unique=True)
-    administrador = models.ForeignKey(Administrador, on_delete=models.CASCADE, null=False, blank=False, db_column='id_administrador')
+    administrador = models.ForeignKey(Administrador, on_delete=models.SET_NULL, null=True, blank=False, db_column='id_administrador')
 
     def save(self, *args, **kwargs):
         if not self.slug or self.esporte != Treino.objects.get(id=self.id).esporte:
@@ -46,7 +46,7 @@ class Noticia(models.Model):
     conteudo = models.TextField(max_length=50000, null=False, blank=False)
     criada_em = models.DateTimeField(auto_now_add=True, null=False, blank=False)
     atualizada_em = models.DateTimeField(auto_now=True, null=False, blank=False)
-    administrador = models.ForeignKey(Administrador, on_delete=models.CASCADE, null=False, blank=False, db_column='id_administrador')
+    administrador = models.ForeignKey(Administrador, on_delete=models.SET_NULL, null=True, blank=False, db_column='id_administrador')
 
     def save(self, *args, **kwargs):
         if not self.slug or self.titulo != Noticia.objects.get(id=self.id).titulo:
@@ -60,7 +60,7 @@ class Arquivo(models.Model):
     slug = models.SlugField(max_length=220, unique=True)
     criado_em = models.DateTimeField(auto_now_add=True, null=False, blank=False)
     atualizado_em = models.DateTimeField(auto_now=True, null=False, blank=False)
-    administrador = models.ForeignKey(Administrador, on_delete=models.CASCADE, null=False, blank=False, db_column='id_administrador')
+    administrador = models.ForeignKey(Administrador, on_delete=models.SET_NULL, null=True, blank=False, db_column='id_administrador')
 
     def save(self, *args, **kwargs):
         if not self.slug or self.titulo != Arquivo.objects.get(id=self.id).titulo:
