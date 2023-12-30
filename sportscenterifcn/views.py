@@ -264,7 +264,7 @@ def editar_arquivo(request, slug):
     dados_formulario = request.session.get('dados_formulario')
     arquivo = get_object_or_404(models.Arquivo, slug=slug)
     form_arquivo = forms.ArquivoForm(dados_formulario, instance=arquivo)
-    imagens = get_list_or_404(models.AnexoArquivo.objects.order_by('id'), arquivo_id=arquivo.id)
+    imagens = get_list_or_404(models.AnexoArquivo.objects.order_by('id'), arquivo=arquivo.id)
     form_anexo = forms.AnexoArquivoForm(dados_formulario)
     form_anexo.fields['anexo'].required = False
     contexto.update({
@@ -297,7 +297,7 @@ def editar_arquivo_salvar(request, slug):
             id_imagens_removidas.append(int(id_imagem))
     arquivo = get_object_or_404(models.Arquivo, slug=slug)
     form_arquivo = forms.ArquivoForm(request.POST, request.FILES, instance=arquivo)
-    imagens = models.AnexoArquivo.objects.filter(arquivo_id=arquivo.id).order_by('id')
+    imagens = models.AnexoArquivo.objects.filter(arquivo=arquivo.id).order_by('id')
     if form_arquivo.is_valid():
         del(request.session['dados_formulario'])
         arquivo = form_arquivo.save()
@@ -325,7 +325,7 @@ def editar_arquivo_salvar(request, slug):
                 nova_capa = imagens_adicionadas[0]
                 arquivo.capa = nova_capa.anexo
                 arquivo.save()
-    return redirect(reverse('sportscenterifcn:visualizar_arquivo', kwargs={'slug': slug}))
+    return redirect(reverse('sportscenterifcn:visualizar_arquivo', kwargs={'slug': arquivo.slug}))
 
 
 def remover_arquivo(request, slug):
@@ -353,7 +353,7 @@ def visualizar_arquivo(request, slug):
                 'administrador': administrador[0]
             })
     arquivo = get_object_or_404(models.Arquivo, slug=slug)
-    imagens = get_list_or_404(models.AnexoArquivo.objects.order_by('id'), arquivo_id=arquivo.id)
+    imagens = get_list_or_404(models.AnexoArquivo.objects.order_by('id'), arquivo=arquivo.id)
     contexto.update({
         'arquivo': arquivo,
         'imagens': imagens
