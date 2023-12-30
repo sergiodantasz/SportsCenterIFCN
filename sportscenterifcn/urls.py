@@ -1,4 +1,5 @@
-from django.urls import path
+from django.shortcuts import redirect
+from django.urls import reverse, path
 
 from sportscenterifcn import views
 
@@ -19,6 +20,12 @@ urlpatterns = [
 
     # Arquivos
     path('arquivos/', views.arquivos, name='arquivos'),
+    path('arquivos/adicionar/', views.adicionar_arquivo, name='adicionar_arquivo'),
+    path('arquivos/adicionar/salvar/', views.adicionar_arquivo_salvar, name='adicionar_arquivo_salvar'),
+    path('arquivos/remover/<slug:slug>/', views.remover_arquivo, name='remover_arquivo'),
+    path('arquivos/editar/<slug:slug>/', views.editar_arquivo, name='editar_arquivo'),
+    path('arquivos/editar/<slug:slug>/salvar/', views.editar_arquivo_salvar, name='editar_arquivo_salvar'),
+    path('arquivos/visualizar/<slug:slug>', views.visualizar_arquivo, name='visualizar_arquivo'),
 
     # Treinos
     path('treinos/', views.treinos, name='treinos'),
@@ -35,5 +42,5 @@ urlpatterns = [
     path('login/', views.login, name='login'),
     path('logout/', views.logout, name='logout'),
     path('perfil/', views.perfil, name='perfil'),
-    path('accounts/profile/', views.redirecionar_perfil, name='redirecionar_perfil'),
+    path('accounts/profile/', lambda request: redirect(reverse('sportscenterifcn:perfil'))),
 ]
