@@ -13,6 +13,11 @@
     <div class="centro">
       <form class="formulario" action="{{ form_action }}" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
+        {% if form.errors %}
+          <div class="erro-formulario">
+            Por favor, preencha o formulário corretamente.
+          </div>
+        {% endif %}
         {% for campo in form %}
           <div class="grupo-campo">
             {% if campo.label == "Capa" %}
@@ -20,11 +25,10 @@
                 <img class="icone" src="{% static "sportscenterifcn/icons/upload.png" %}" alt="Ícone de upload.">
                 <h3 id="texto-label-capa">Selecionar arquivo para capa...</h3>
               </label>
-              {{ campo|safe }}
             {% else %}
               <label class="bold" for="{{ campo.id_for_label }}">{{ campo.label }}</label>
-              {{ campo }}
             {% endif %}
+            {{ campo }}
           </div>
         {% endfor %}
         <div class="botoes-formulario">

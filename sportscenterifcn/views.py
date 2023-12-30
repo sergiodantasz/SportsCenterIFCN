@@ -1,12 +1,18 @@
 from django.contrib.auth import logout as auth_logout
-from django.shortcuts import get_object_or_404, redirect, render
+from django.shortcuts import get_object_or_404, get_list_or_404, redirect, render
 from django.urls import reverse
 
 from sportscenterifcn import forms, models
+from utils.paginacao import criar_paginacao
 
+
+# INÍCIO
 
 def inicio(request):
-    contexto = {}
+    noticias = models.Noticia.objects.all().order_by('-id')[:3]
+    contexto = {
+        'noticias': noticias
+    }
     if request.user.is_authenticated:
         usuario = models.Usuario.objects.get(pk=request.user.username)
         contexto.update({
@@ -19,16 +25,26 @@ def inicio(request):
     )
 
 
+# NOTÍCIAS
+
 def noticias(request):
     contexto = {}
     if request.user.is_authenticated:
         usuario = models.Usuario.objects.get(pk=request.user.username)
         contexto.update({
-            'usuario': usuario
+            'usuario': usuario,
+            'administrador': None
         })
-    noticias = models.Noticia.objects.all()
+        administrador = models.Administrador.objects.filter(usuario=usuario.matricula)
+        if administrador.count() == 1:
+            contexto.update({
+                'administrador': administrador[0]
+            })
+    noticias = models.Noticia.objects.all().order_by('-id')
+    page_obj, pagination_range = criar_paginacao(request, noticias, 5)
     contexto.update({
-        'noticias': noticias
+        'noticias': page_obj,
+        'pagination_range': pagination_range
     })
     return render(
         request,
@@ -42,8 +58,14 @@ def visualizar_noticia(request, slug):
     if request.user.is_authenticated:
         usuario = models.Usuario.objects.get(pk=request.user.username)
         contexto.update({
-            'usuario': usuario
+            'usuario': usuario,
+            'administrador': None
         })
+        administrador = models.Administrador.objects.filter(usuario=usuario.matricula)
+        if administrador.count() == 1:
+            contexto.update({
+                'administrador': administrador[0]
+            })
     noticia = get_object_or_404(models.Noticia, slug=slug)
     contexto.update({
         'noticia': noticia
@@ -59,12 +81,14 @@ def adicionar_noticia(request):
     contexto = {}
     if request.user.is_authenticated:
         usuario = models.Usuario.objects.get(pk=request.user.username)
-        if usuario.permissao_administrador != 1:
-            return redirect(reverse('sportscenterifcn:noticias'))
         contexto.update({
             'usuario': usuario
         })
-    form = forms.NoticiaForm()
+        administrador = models.Administrador.objects.filter(usuario=usuario.matricula)
+        if administrador.count() != 1:
+            return redirect(reverse('sportscenterifcn:noticias'))
+    dados_formulario = request.session.get('dados_formulario')
+    form = forms.NoticiaForm(dados_formulario)
     contexto.update({
         'form': form,
         'form_action': reverse('sportscenterifcn:adicionar_noticia_salvar')
@@ -79,11 +103,19 @@ def adicionar_noticia(request):
 def adicionar_noticia_salvar(request):
     if request.user.is_authenticated:
         usuario = models.Usuario.objects.get(pk=request.user.username)
-        if usuario.permissao_administrador != 1:
+        administrador = models.Administrador.objects.filter(usuario=usuario.matricula)
+        if administrador.count() != 1:
             return redirect(reverse('sportscenterifcn:noticias'))
+        administrador = administrador[0]
+    request.session['dados_formulario'] = request.POST
     form = forms.NoticiaForm(request.POST, request.FILES)
     if form.is_valid():
-        form.save()
+        del(request.session['dados_formulario'])
+        noticia = form.save()
+        noticia.administrador = administrador
+        noticia.save()
+    else:
+        return redirect(reverse('sportscenterifcn:adicionar_noticia'))
     return redirect(reverse('sportscenterifcn:noticias'))
 
 
@@ -91,18 +123,21 @@ def editar_noticia(request, slug):
     contexto = {}
     if request.user.is_authenticated:
         usuario = models.Usuario.objects.get(pk=request.user.username)
-        if usuario.permissao_administrador != 1:
-            return redirect(reverse('sportscenterifcn:noticias'))
         contexto.update({
             'usuario': usuario
         })
+        administrador = models.Administrador.objects.filter(usuario=usuario.matricula)
+        if administrador.count() != 1:
+            return redirect(reverse('sportscenterifcn:visualizar_noticia', kwargs={'slug': slug}))
+    dados_formulario = request.session.get('dados_formulario')
     noticia = get_object_or_404(models.Noticia, slug=slug)
-    form = forms.NoticiaForm(instance=noticia)
+    form = forms.NoticiaForm(dados_formulario, instance=noticia)
     contexto.update({
         'form': form,
         'form_action': reverse(
             'sportscenterifcn:editar_noticia_salvar', kwargs={'slug': slug}
         ),
+        'noticia': noticia,
     })
     return render(
         request,
@@ -114,32 +149,50 @@ def editar_noticia(request, slug):
 def editar_noticia_salvar(request, slug):
     if request.user.is_authenticated:
         usuario = models.Usuario.objects.get(pk=request.user.username)
-        if usuario.permissao_administrador != 1:
-            return redirect(reverse('sportscenterifcn:noticias'))
+        administrador = models.Administrador.objects.filter(usuario=usuario.matricula)
+        if administrador.count() != 1:
+            return redirect(reverse('sportscenterifcn:visualizar_noticia', kwargs={'slug': slug}))
+    request.session['dados_formulario'] = request.POST
     noticia = get_object_or_404(models.Noticia, slug=slug)
     form = forms.NoticiaForm(request.POST, request.FILES, instance=noticia)
     if form.is_valid():
+        del(request.session['dados_formulario'])
         form.save()
-    return redirect(reverse('sportscenterifcn:noticias'))
+    return redirect(reverse('sportscenterifcn:visualizar_noticia', kwargs={'slug': noticia.slug}))
 
 
 def remover_noticia(request, slug):
     if request.user.is_authenticated:
         usuario = models.Usuario.objects.get(pk=request.user.username)
-        if usuario.permissao_administrador != 1:
+        administrador = models.Administrador.objects.filter(usuario=usuario.matricula)
+        if administrador.count() != 1:
             return redirect(reverse('sportscenterifcn:noticias'))
     noticia = get_object_or_404(models.Noticia, slug=slug)
     noticia.delete()
     return redirect(reverse('sportscenterifcn:noticias'))
 
 
+# ARQUIVOS
+
 def arquivos(request):
     contexto = {}
     if request.user.is_authenticated:
         usuario = models.Usuario.objects.get(pk=request.user.username)
         contexto.update({
-            'usuario': usuario
+            'usuario': usuario,
+            'administrador': None
         })
+        administrador = models.Administrador.objects.filter(usuario=usuario.matricula)
+        if administrador.count() == 1:
+            contexto.update({
+                'administrador': administrador[0]
+            })
+    arquivos = models.Arquivo.objects.all().order_by('-id')
+    page_obj, pagination_range = criar_paginacao(request, arquivos, 12)
+    contexto.update({
+        'arquivos': page_obj,
+        'pagination_range': pagination_range
+    })
     return render(
         request,
         'sportscenterifcn/pages/arquivos.html',
@@ -147,14 +200,179 @@ def arquivos(request):
     )
 
 
-def treinos(request):
+def adicionar_arquivo(request):
     contexto = {}
     if request.user.is_authenticated:
         usuario = models.Usuario.objects.get(pk=request.user.username)
         contexto.update({
             'usuario': usuario
         })
-    treinos = models.Treino.objects.all()
+        administrador = models.Administrador.objects.filter(usuario=usuario.matricula)
+        if administrador.count() != 1:
+            return redirect(reverse('sportscenterifcn:arquivos'))
+    dados_formulario = request.session.get('dados_formulario')
+    form_arquivo = forms.ArquivoForm(dados_formulario)
+    form_anexo = forms.AnexoArquivoForm(dados_formulario)
+    contexto.update({
+        'form_arquivo': form_arquivo,
+        'form_anexo': form_anexo,
+        'form_action': reverse('sportscenterifcn:adicionar_arquivo_salvar')
+    })
+    return render(
+        request,
+        'sportscenterifcn/pages/adicionar-arquivo.html',
+        contexto
+    )
+
+
+def adicionar_arquivo_salvar(request):
+    if request.user.is_authenticated:
+        usuario = models.Usuario.objects.get(pk=request.user.username)
+        administrador = models.Administrador.objects.filter(usuario=usuario.matricula)
+        if administrador.count() != 1:
+            return redirect(reverse('sportscenterifcn:arquivos'))
+        administrador = administrador[0]
+    request.session['dados_formulario'] = request.POST
+    form_arquivo = forms.ArquivoForm(request.POST)
+    imagens = request.FILES.getlist('anexo')
+    if form_arquivo.is_valid():
+        del(request.session['dados_formulario'])
+        arquivo = form_arquivo.save()
+        for i, imagem in enumerate(imagens):
+            img = models.AnexoArquivo.objects.create(
+                arquivo=arquivo,
+                anexo=imagem
+            )
+            if i == 0:
+                arquivo.capa = img.anexo
+                arquivo.save()
+        arquivo.administrador = administrador
+        arquivo.save()
+    return redirect(reverse('sportscenterifcn:arquivos'))
+
+
+def editar_arquivo(request, slug):
+    contexto = {}
+    if request.user.is_authenticated:
+        usuario = models.Usuario.objects.get(pk=request.user.username)
+        contexto.update({
+            'usuario': usuario
+        })
+        administrador = models.Administrador.objects.filter(usuario=usuario.matricula)
+        if administrador.count() != 1:
+            return redirect(reverse('sportscenterifcn:visualizar_arquivo', kwargs={'slug': slug}))
+    dados_formulario = request.session.get('dados_formulario')
+    arquivo = get_object_or_404(models.Arquivo, slug=slug)
+    form_arquivo = forms.ArquivoForm(dados_formulario, instance=arquivo)
+    imagens = get_list_or_404(models.AnexoArquivo.objects.order_by('id'), arquivo_id=arquivo.id)
+    form_anexo = forms.AnexoArquivoForm(dados_formulario)
+    form_anexo.fields['anexo'].required = False
+    contexto.update({
+        'form_arquivo': form_arquivo,
+        'form_anexo': form_anexo,
+        'imagens': imagens,
+        'form_action': reverse(
+            'sportscenterifcn:editar_arquivo_salvar', kwargs={'slug': slug}
+        ),
+        'arquivo': arquivo,
+    })
+    return render(
+        request,
+        'sportscenterifcn/pages/editar-arquivo.html',
+        contexto
+    )
+
+
+def editar_arquivo_salvar(request, slug):
+    if request.user.is_authenticated:
+        usuario = models.Usuario.objects.get(pk=request.user.username)
+        administrador = models.Administrador.objects.filter(usuario=usuario.matricula)
+        if administrador.count() != 1:
+            return redirect(reverse('sportscenterifcn:visualizar_arquivo', kwargs={'slug': slug}))
+    request.session['dados_formulario'] = request.POST
+    id_imagens_removidas = []
+    for k, v in request.POST.items():
+        if 'imagem' in k and v == 'on':
+            id_imagem = k.split('-')[1]
+            id_imagens_removidas.append(int(id_imagem))
+    arquivo = get_object_or_404(models.Arquivo, slug=slug)
+    form_arquivo = forms.ArquivoForm(request.POST, request.FILES, instance=arquivo)
+    imagens = models.AnexoArquivo.objects.filter(arquivo_id=arquivo.id).order_by('id')
+    if form_arquivo.is_valid():
+        del(request.session['dados_formulario'])
+        arquivo = form_arquivo.save()
+        imagens_nao_removidas = [
+            imagem for imagem in imagens if imagem.id not in id_imagens_removidas
+        ]
+        for id_imagem in id_imagens_removidas:
+            imagem = imagens.get(id=id_imagem)
+            if imagem.anexo.url == arquivo.capa.url:
+                nova_capa = imagens_nao_removidas[0]
+                arquivo.capa = nova_capa.anexo
+                arquivo.save()
+            imagem.delete()
+        imagens_adicionadas = request.FILES.getlist('anexo')
+        for imagem in imagens_adicionadas:
+            models.AnexoArquivo.objects.create(
+                arquivo=arquivo,
+                anexo=imagem
+            )
+    return redirect(reverse('sportscenterifcn:visualizar_arquivo', kwargs={'slug': slug}))
+
+
+def remover_arquivo(request, slug):
+    if request.user.is_authenticated:
+        usuario = models.Usuario.objects.get(pk=request.user.username)
+        administrador = models.Administrador.objects.filter(usuario=usuario.matricula)
+        if administrador.count() != 1:
+            return redirect(reverse('sportscenterifcn:arquivos'))
+    arquivo = get_object_or_404(models.Arquivo, slug=slug)
+    arquivo.delete()
+    return redirect(reverse('sportscenterifcn:arquivos'))
+
+
+def visualizar_arquivo(request, slug):
+    contexto = {}
+    if request.user.is_authenticated:
+        usuario = models.Usuario.objects.get(pk=request.user.username)
+        contexto.update({
+            'usuario': usuario,
+            'administrador': None
+        })
+        administrador = models.Administrador.objects.filter(usuario=usuario.matricula)
+        if administrador.count() == 1:
+            contexto.update({
+                'administrador': administrador[0]
+            })
+    arquivo = get_object_or_404(models.Arquivo, slug=slug)
+    imagens = get_list_or_404(models.AnexoArquivo.objects.order_by('id'), arquivo_id=arquivo.id)
+    contexto.update({
+        'arquivo': arquivo,
+        'imagens': imagens
+    })
+    return render(
+        request,
+        'sportscenterifcn/pages/visualizar-arquivo.html',
+        contexto
+    )
+
+
+# TREINOS
+
+def treinos(request):
+    contexto = {}
+    if request.user.is_authenticated:
+        usuario = models.Usuario.objects.get(pk=request.user.username)
+        contexto.update({
+            'usuario': usuario,
+            'administrador': None
+        })
+        administrador = models.Administrador.objects.filter(usuario=usuario.matricula)
+        if administrador.count() == 1:
+            contexto.update({
+                'administrador': administrador[0]
+            })
+    treinos = models.Treino.objects.all().order_by('esporte')
     contexto.update({
         'treinos': treinos
     })
@@ -168,7 +386,8 @@ def treinos(request):
 def remover_treino(request, slug):
     if request.user.is_authenticated:
         usuario = models.Usuario.objects.get(pk=request.user.username)
-        if usuario.permissao_administrador != 1:
+        administrador = models.Administrador.objects.filter(usuario=usuario.matricula)
+        if administrador.count() != 1:
             return redirect(reverse('sportscenterifcn:treinos'))
     treino = get_object_or_404(models.Treino, slug=slug)
     treino.delete()
@@ -179,12 +398,14 @@ def adicionar_treino(request):
     contexto = {}
     if request.user.is_authenticated:
         usuario = models.Usuario.objects.get(pk=request.user.username)
-        if usuario.permissao_administrador != 1:
-            return redirect(reverse('sportscenterifcn:treinos'))
         contexto.update({
             'usuario': usuario
         })
-    form = forms.TreinoForm()
+        administrador = models.Administrador.objects.filter(usuario=usuario.matricula)
+        if administrador.count() != 1:
+            return redirect(reverse('sportscenterifcn:treinos'))
+    dados_formulario = request.session.get('dados_formulario')
+    form = forms.TreinoForm(dados_formulario)
     contexto.update({
         'form': form,
         'form_action': reverse('sportscenterifcn:adicionar_treino_salvar')
@@ -199,11 +420,17 @@ def adicionar_treino(request):
 def adicionar_treino_salvar(request):
     if request.user.is_authenticated:
         usuario = models.Usuario.objects.get(pk=request.user.username)
-        if usuario.permissao_administrador != 1:
+        administrador = models.Administrador.objects.filter(usuario=usuario.matricula)
+        if administrador.count() != 1:
             return redirect(reverse('sportscenterifcn:treinos'))
+        administrador = administrador[0]
+    request.session['dados_formulario'] = request.POST
     form = forms.TreinoForm(request.POST)
     if form.is_valid():
-        form.save()
+        del(request.session['dados_formulario'])
+        treino = form.save()
+        treino.administrador = administrador
+        treino.save()
     return redirect(reverse('sportscenterifcn:treinos'))
 
 
@@ -211,18 +438,21 @@ def editar_treino(request, slug):
     contexto = {}
     if request.user.is_authenticated:
         usuario = models.Usuario.objects.get(pk=request.user.username)
-        if usuario.permissao_administrador != 1:
-            return redirect(reverse('sportscenterifcn:treinos'))
         contexto.update({
             'usuario': usuario
         })
+        administrador = models.Administrador.objects.filter(usuario=usuario.matricula)
+        if administrador.count() != 1:
+            return redirect(reverse('sportscenterifcn:treinos', kwargs={'slug': slug}))
+    dados_formulario = request.session.get('dados_formulario')
     treino = get_object_or_404(models.Treino, slug=slug)
-    form = forms.TreinoForm(instance=treino)
+    form = forms.TreinoForm(dados_formulario, instance=treino)
     contexto.update({
         'form': form,
         'form_action': reverse(
             'sportscenterifcn:editar_treino_salvar', kwargs={'slug': slug}
         ),
+        'treino': treino
     })
     return render(
         request,
@@ -234,14 +464,19 @@ def editar_treino(request, slug):
 def editar_treino_salvar(request, slug):
     if request.user.is_authenticated:
         usuario = models.Usuario.objects.get(pk=request.user.username)
-        if usuario.permissao_administrador != 1:
-            return redirect(reverse('sportscenterifcn:treinos'))
+        administrador = models.Administrador.objects.filter(usuario=usuario.matricula)
+        if administrador.count() != 1:
+            return redirect(reverse('sportscenterifcn:treinos', kwargs={'slug': slug}))
+    request.session['dados_formulario'] = request.POST
     treino = get_object_or_404(models.Treino, slug=slug)
     form = forms.TreinoForm(request.POST, instance=treino)
     if form.is_valid():
+        del(request.session['dados_formulario'])
         form.save()
     return redirect(reverse('sportscenterifcn:treinos'))
 
+
+# HISTÓRIA
 
 def historia(request):
     contexto = {}
@@ -257,6 +492,8 @@ def historia(request):
     )
 
 
+# PERFIL
+
 def login(request):
     if request.user.is_authenticated:
         return redirect(reverse('sportscenterifcn:perfil'))
@@ -264,6 +501,12 @@ def login(request):
         request,
         'sportscenterifcn/pages/login.html',
     )
+
+
+def logout(request):
+    if request.user.is_authenticated:
+        auth_logout(request)
+    return redirect(reverse('sportscenterifcn:inicio'))
 
 
 def perfil(request):
@@ -277,13 +520,3 @@ def perfil(request):
             'usuario': usuario,
         }
     )
-
-
-def redirecionar_perfil(request):
-    return redirect(reverse('sportscenterifcn:perfil'))
-
-
-def logout(request):
-    if request.user.is_authenticated:
-        auth_logout(request)
-    return redirect(reverse('sportscenterifcn:inicio'))

@@ -1,0 +1,43 @@
+{% extends "sportscenterifcn/pages/base.html" %}
+
+{% load static %}
+
+{% block titulo %}Arquivos - Visualizar - {{ arquivo.titulo }} - Sports Center IFCN{% endblock titulo %}
+
+{% block conteudo %}
+  <div class="conteudo-arquivo fundo-branco">
+    <div class="centro">
+      <main class="arquivo">
+        <div class="informacoes-arquivo">
+          <h2 class="titulo-arquivo">{{ arquivo.titulo }}</h2>
+          <p class="data-publicacao-arquivo">
+            Publicada por {{ arquivo.administrador.usuario.nome }} em {{ arquivo.criado_em|date:"d/m/Y" }} às {{ arquivo.criado_em|date:"H\hi\m\i\n" }}
+            {% if arquivo.criado_em|date:"d/m/Y H:i" != arquivo.atualizado_em|date:"d/m/Y H:i" %}
+              | Atualizado em {{ arquivo.atualizado_em|date:"d/m/Y" }} às {{ arquivo.atualizado_em|date:"H\hi\m\i\n" }}
+            {% endif %}
+          </p>
+        </div>
+        <div class="barra"></div>
+        <div class="imagens-arquivo">
+          {% for imagem in imagens %}
+            <img src="{{ imagem.anexo.url }}" alt="Imagem do arquivo." class="imagem-arquivo">
+          {% endfor %}
+        </div>
+      </main>
+      {% if administrador is not None and arquivo.administrador == administrador %}
+        <div class="botoes">
+          <a href="{% url "sportscenterifcn:editar_arquivo" arquivo.slug %}" class="botao-acao-adm">
+            <img src="{% static "sportscenterifcn/icons/editar.png" %}" alt="Ícone de editar." class="icone">
+            <h3>Editar Arquivo</h3>
+          </a>
+          <a href="{% url "sportscenterifcn:remover_arquivo" arquivo.slug %}" class="botao-acao-adm">
+            <img src="{% static "sportscenterifcn/icons/remover.png" %}" alt="Ícone de remover." class="icone">
+            <h3>Remover Arquivo</h3>
+          </a>
+        </div>
+      {% else %}
+        <div class="espacamento-fantasma"></div>
+      {% endif %}
+    </div>
+  </div>
+{% endblock conteudo %}

@@ -13,6 +13,11 @@
     <div class="centro">
       <form class="formulario" action="{{ form_action }}" method="POST">
         {% csrf_token %}
+        {% if form.errors %}
+          <div class="erro-formulario">
+            Por favor, preencha o formulário corretamente.
+          </div>
+        {% endif %}
         {% for campo in form %}
           <div class="grupo-campo">
             <label class="bold" for="{{ campo.id_for_label }}">{{ campo.label }}</label>

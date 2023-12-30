@@ -2,7 +2,7 @@
 
 {% load static %}
 
-{% block titulo %}Notícias - Sports Center IFCN{% endblock titulo %}
+{% block titulo %}Notícias - Visualizar - {{ noticia.titulo }} - Sports Center IFCN{% endblock titulo %}
 
 {% block conteudo %}
   <div class="conteudo-noticia fundo-branco">
@@ -12,24 +12,31 @@
         <div class="informacoes-noticia">
           <h2 class="titulo-noticia">{{ noticia.titulo }}</h2>
           <p class="excerto">{{ noticia.excerto }}</p>
-          <p class="data-publicacao-noticia">{{ noticia.criada_em|date:"d/m/Y" }} - {{ noticia.criada_em|date:"H\hi\m\i\n" }}</p>
+          <p class="data-publicacao-noticia">
+            Publicada por {{ noticia.administrador.usuario.nome }} em {{ noticia.criada_em|date:"d/m/Y" }} às {{ noticia.criada_em|date:"H\hi\m\i\n" }}
+            {% if noticia.criada_em|date:"d/m/Y H:i" != noticia.atualizada_em|date:"d/m/Y H:i" %}
+              | Atualizada em {{ noticia.atualizada_em|date:"d/m/Y" }} às {{ noticia.atualizada_em|date:"H\hi\m\i\n" }}
+            {% endif %}
+          </p>
         </div>
         <div class="barra"></div>
         <div class="conteudo-noticia-bd">
           {{ noticia.conteudo|safe }}
         </div>
       </main>
-      {% if usuario.permissao_administrador %}
+      {% if administrador is not None and noticia.administrador == administrador %}
         <div class="botoes">
           <a href="{% url "sportscenterifcn:editar_noticia" noticia.slug %}" class="botao-acao-adm">
-            <img src="{% static "sportscenterifcn/icons/editar.png" %}" alt="Ícone de adicionar." class="icone">
+            <img src="{% static "sportscenterifcn/icons/editar.png" %}" alt="Ícone de editar." class="icone">
             <h3>Editar Notícia</h3>
           </a>
           <a href="{% url "sportscenterifcn:remover_noticia" noticia.slug %}" class="botao-acao-adm">
-            <img src="{% static "sportscenterifcn/icons/remover.png" %}" alt="Ícone de adicionar." class="icone">
+            <img src="{% static "sportscenterifcn/icons/remover.png" %}" alt="Ícone de remover." class="icone">
             <h3>Remover Notícia</h3>
           </a>
         </div>
+      {% else %}
+        <div class="espacamento-fantasma"></div>
       {% endif %}
     </div>
   </div>

@@ -1,21 +1,71 @@
 {% extends "sportscenterifcn/pages/base.html" %}
 
+{% load static %}
+
 {% block titulo %}Arquivos - Sports Center IFCN{% endblock titulo %}
 
 {% block conteudo %}
-  <div class="fundo-branco">
-    <div class="secao-1 conteudo centro">
-      <h1>Seção 1</h1>
-    </div>
-  </div>
-  <div class="fundo-verde-escuro">
-    <div class="secao-2 conteudo centro">
-      <h1>Seção 2</h1>
-    </div>
-  </div>
-  <div class="fundo-branco">
-    <div class="secao-3 conteudo centro">
-      <h1>Seção 3</h1>
+  <div class="conteudo fundo-branco">
+    <header class="cabecalho">
+      <h1>Arquivos</h1>
+      <div class="barra"></div>
+    </header>
+    <div class="centro">
+      {% if administrador is not None %}
+        <a class="link-botao" href="{% url "sportscenterifcn:adicionar_arquivo" %}">
+          <div class="botao-acao-adm">
+            <img src="{% static "sportscenterifcn/icons/adicionar.png" %}" alt="Ícone de adicionar." class="icone">
+            <h3>Adicionar Arquivo</h3>
+          </div>
+        </a>
+      {% endif %}
+      {% if arquivos|length > 0 %}
+        <div class="grid-arquivos">
+          {% for arquivo in arquivos %}
+            <a href="{% url "sportscenterifcn:visualizar_arquivo" arquivo.slug %}" class="arquivo">
+              <img src="{{ arquivo.capa.url }}" alt="Capa do arquivo." class="capa-arquivo">
+              <p class="titulo-arquivo">{{ arquivo.titulo }}</p>
+            </a>
+          {% endfor %}
+        </div>
+        {% if arquivos.has_other_pages %}
+          <div class="paginacao">
+            {% if pagination_range.primeira_pagina_fora_do_range %}
+              <a href="?page=1" class="primeira-pagina link-pagina">
+                <div>
+                  1
+                </div>
+              </a>
+            {% endif %}
+            <div class="paginas-paginacao">
+              {% for page in pagination_range.paginacao %}
+                {% if pagination_range.pagina_atual == page %}
+                  <a href="?page={{ page }}" class="pagina-paginacao link-pagina pagina-atual-paginacao">
+                    <div>
+                      {{ page }}
+                    </div>
+                  </a>
+                {% else %}
+                  <a href="?page={{ page }}" class="pagina-paginacao link-pagina">
+                    <div>
+                      {{ page }}
+                    </div>
+                  </a>
+                {% endif %}
+              {% endfor %}
+            </div>
+            {% if pagination_range.ultima_pagina_fora_do_range %}
+              <a href="?page={{ pagination_range.total_paginas }}" class="ultima-pagina link-pagina">
+                <div>
+                  {{ pagination_range.total_paginas }}
+                </div>
+              </a>
+            {% endif %}
+          </div>
+        {% endif %}
+      {% else %}
+        <h3 class="nada-existente">Nenhum arquivo foi enviado.</h3>
+      {% endif %}
     </div>
   </div>
 {% endblock conteudo %}

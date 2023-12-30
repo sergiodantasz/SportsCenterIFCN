@@ -11,6 +11,14 @@
       <div class="barra"></div>
     </header>
     <div class="centro">
+      {% if administrador is not None %}
+        <a class="link-botao" href="{% url "sportscenterifcn:adicionar_treino" %}">
+          <div class="botao-acao-adm">
+            <img src="{% static "sportscenterifcn/icons/adicionar.png" %}" alt="Ícone de adicionar." class="icone">
+            <h3>Adicionar Treino</h3>
+          </div>
+        </a>
+      {% endif %}
       {% if treinos|length > 0 %}
         <div class="tabela-treinos-container">
           <table class="tabela-treinos">
@@ -25,7 +33,7 @@
                 <tr>
                   <td class="coluna-esquerda">
                     <div>
-                      {% if usuario.permissao_administrador %}
+                      {% if administrador is not None and treino.administrador == administrador %}
                         <div class="icones">
                           <a class="link-icone" href="{% url "sportscenterifcn:editar_treino" treino.slug %}">
                             <img src="{% static "sportscenterifcn/icons/editar.png" %}" alt="Ícone de editar." class="icone">
@@ -48,14 +56,6 @@
         </div>
       {% else %}
         <h3 class="nada-existente">Nenhum treino foi cadastrado.</h3>
-      {% endif %}
-      {% if usuario.permissao_administrador %}
-        <a href="{% url "sportscenterifcn:adicionar_treino" %}">
-          <div class="botao-acao-adm">
-            <img src="{% static "sportscenterifcn/icons/adicionar.png" %}" alt="Ícone de adicionar." class="icone">
-            <h3>Adicionar Treino</h3>
-          </div>
-        </a>
       {% endif %}
     </div>
   </div>

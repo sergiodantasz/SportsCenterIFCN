@@ -11,8 +11,8 @@
       <div class="barra"></div>
     </header>
     <div class="centro">
-      {% if usuario.permissao_administrador %}
-        <a href="{% url "sportscenterifcn:adicionar_noticia" %}">
+      {% if administrador is not None %}
+        <a class="link-botao" href="{% url "sportscenterifcn:adicionar_noticia" %}">
           <div class="botao-acao-adm">
             <img src="{% static "sportscenterifcn/icons/adicionar.png" %}" alt="Ícone de adicionar." class="icone">
             <h3>Adicionar Notícia</h3>
@@ -27,11 +27,46 @@
               <div class="informacoes-noticia">
                 <h3 class="titulo-noticia">{{ noticia.titulo }}</h3>
                 <p class="excerto">{{ noticia.excerto }}</p>
-                <p class="data-publicacao-noticia">{{ noticia.criada_em|date:"d/m/Y" }} - {{ noticia.criada_em|date:"H\hi\m\i\n" }}</p>
+                <p class="data-publicacao-noticia">Publicada por {{ noticia.administrador.usuario.nome }} em {{ noticia.criada_em|date:"d/m/Y" }} às {{ noticia.criada_em|date:"H\hi\m\i\n" }}</p>
               </div>
             </a>
           {% endfor %}
         </section>
+        {% if noticias.has_other_pages %}
+          <div class="paginacao">
+            {% if pagination_range.primeira_pagina_fora_do_range %}
+              <a href="?page=1" class="primeira-pagina link-pagina">
+                <div>
+                  1
+                </div>
+              </a>
+            {% endif %}
+            <div class="paginas-paginacao">
+              {% for page in pagination_range.paginacao %}
+                {% if pagination_range.pagina_atual == page %}
+                  <a href="?page={{ page }}" class="pagina-paginacao link-pagina pagina-atual-paginacao">
+                    <div>
+                      {{ page }}
+                    </div>
+                  </a>
+                {% else %}
+                  <a href="?page={{ page }}" class="pagina-paginacao link-pagina">
+                    <div>
+                      {{ page }}
+                    </div>
+                  </a>
+                {% endif %}
+              {% endfor %}
+            </div>
+            {% if pagination_range.ultima_pagina_fora_do_range %}
+              <a href="?page={{ pagination_range.total_paginas }}" class="ultima-pagina link-pagina">
+                <div>
+                  {{ pagination_range.total_paginas }}
+                </div>
+              </a>
+            {% endif %}
+          </div>
+        {% endif %}
       {% else %}
         <h3 class="nada-existente">Nenhuma notícia foi cadastrada.</h3>
       {% endif %}

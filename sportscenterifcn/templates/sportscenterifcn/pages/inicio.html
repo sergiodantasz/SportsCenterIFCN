@@ -1,21 +1,67 @@
 {% extends "sportscenterifcn/pages/base.html" %}
 
+{% load static %}
+
 {% block titulo %}Início - Sports Center IFCN{% endblock titulo %}
 
 {% block conteudo %}
-  <div class="fundo-branco">
-    <div class="secao-1 conteudo centro">
-      <h1>Seção 1</h1>
+  <section class="fundo-verde-escuro">
+    <div class="imagem-inicio centro">
+      <img class="jogadores-inicio" src="{% static "global/img/imagem-jogadores.png" %}" alt="Imagem de jogadores do campus.">
+      <img class="logo-inicio" src="{% static "global/img/logo.png" %}" alt="Logo do Sports Center IFCN.">
     </div>
-  </div>
-  <div class="fundo-verde-escuro">
-    <div class="secao-2 conteudo centro">
-      <h1>Seção 2</h1>
+  </section>
+  <section class="fundo-branco">
+    <div class="secao secao-generica conteudo centro">
+      <div class="cabecalho-noticias-inicio">
+        <h1>Notícias</h1>
+        <a href="{% url "sportscenterifcn:noticias" %}" class="link sem-underline">Acessar página de notícias...</a>
+      </div>
+      <div class="noticias-inicio">
+        {% if noticias|length > 0 %}
+          {% for noticia in noticias %}
+            <a href="{% url "sportscenterifcn:visualizar_noticia" noticia.slug %}" class="noticia-inicio">
+              <div class="titulo bold">
+                {{ noticia.titulo }}
+              </div>
+              <div class="excerto">
+                {{ noticia.excerto }}
+              </div>
+            </a>
+          {% endfor %}
+        {% else %}
+          <div class="nenhuma-noticia-inicio">
+            <h3>Nenhuma notícia foi cadastrada.</h3>
+          </div>
+        {% endif %}
+      </div>
     </div>
-  </div>
-  <div class="fundo-branco">
-    <div class="secao-3 conteudo centro">
-      <h1>Seção 3</h1>
+  </section>
+  <section class="fundo-verde-escuro">
+    <div class="secao secao-generica conteudo centro">
+      <h3>Deseja praticar algum esporte no campus? Clique no botão abaixo para ver os dias e horários dos treinos.</h3>
+      <a href="{% url "sportscenterifcn:treinos" %}" class="botao-fundo-verde centro bold">
+        Ver os treinos
+      </a>
     </div>
-  </div>
+  </section>
+  <section class="fundo-branco">
+    <div class="secao secao-generica conteudo centro">
+      <img src="{% static "global/img/trofeu.png" %}" alt="Ilustração de um troféu.">
+      <h3>Venha conhecer a história dos esportes no nosso campus, entenda como a paixão pelo movimento surgiu, veja as nossas conquistas e troféus. É simples, <a class="link" href="{% url "sportscenterifcn:historia" %}">clique aqui</a>!</h3>
+    </div>
+  </section>
+  <section class="fundo-verde-escuro">
+    <div class="secao secao-generica conteudo centro">
+      <h3>O Sports Center IFCN tem uma área dedicada especialmente a registros dos nossos esportes. Deseja ver? Clique no botão abaixo!</h3>
+      <a href="{% url "sportscenterifcn:arquivos" %}" class="botao-fundo-verde centro bold">
+        Ver os arquivos
+      </a>
+    </div>
+  </section>
+  <section class="fundo-branco">
+    <div class="secao secao-generica conteudo centro">
+      <h3>Caso deseje ter acesso a recursos mais exclusivos do nosso site, entre com a sua conta do SUAP. É rápido, basta clicar em <a href="{% url "sportscenterifcn:login" %}" class="link">Login</a> no canto superior direito da tela.</h3>
+    </div>
+  </section>
 {% endblock conteudo %}

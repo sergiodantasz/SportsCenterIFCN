@@ -1,0 +1,54 @@
+{% extends "sportscenterifcn/pages/base.html" %}
+
+{% load static %}
+
+{% block titulo %}Arquivos - Adicionar - Sports Center IFCN{% endblock titulo %}
+
+{% block conteudo %}
+  <div class="conteudo fundo-branco">
+    <header class="cabecalho">
+      <h1>Adicionar Arquivo</h1>
+      <div class="barra"></div>
+    </header>
+    <div class="centro">
+      <form class="formulario" action="{{ form_action }}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% if form_arquivo.errors or form_anexo.errors %}
+          <div class="erro-formulario">
+            Por favor, preencha o formulário corretamente.
+          </div>
+        {% endif %}
+        {% for campo in form_arquivo %}
+          <div class="grupo-campo">
+            <label class="bold" for="{{ campo.id_for_label }}">{{ campo.label }}</label>
+            {{ campo }}
+          </div>
+        {% endfor %}
+        {% for campo in form_anexo %}
+          <div class="grupo-campo">
+            <label class="label-anexo bold" for="{{ campo.id_for_label }}">
+              <img class="icone" src="{% static "sportscenterifcn/icons/upload.png" %}" alt="Ícone de upload.">
+              <h3 id="texto-label-anexo">Selecionar arquivos...</h3>
+            </label>
+            {{ campo }}
+          </div>
+        {% endfor %}
+        <div class="botoes-formulario">
+          <a class="botao-link" href="{% url "sportscenterifcn:arquivos" %}">Cancelar</a>
+          <button class="botao" type="submit">Salvar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <script>
+    let inputAnexo = document.getElementById('id_anexo');
+    let textoLabelAnexo = document.getElementById('texto-label-anexo');
+    inputAnexo.addEventListener('change', function() {
+      if (inputAnexo.files.length > 0) {
+        textoLabelAnexo.textContent = inputAnexo.files.length + ' arquivo(s) selecionado(s)...';
+      } else {
+        textoLabelAnexo.textContent = 'Selecionar arquivos...';
+      }
+    })
+  </script>
+{% endblock conteudo %}
