@@ -301,22 +301,30 @@ def editar_arquivo_salvar(request, slug):
     if form_arquivo.is_valid():
         del(request.session['dados_formulario'])
         arquivo = form_arquivo.save()
-        imagens_nao_removidas = [
-            imagem for imagem in imagens if imagem.id not in id_imagens_removidas
-        ]
-        for id_imagem in id_imagens_removidas:
-            imagem = imagens.get(id=id_imagem)
-            if imagem.anexo.url == arquivo.capa.url:
-                nova_capa = imagens_nao_removidas[0]
-                arquivo.capa = nova_capa.anexo
-                arquivo.save()
-            imagem.delete()
         imagens_adicionadas = request.FILES.getlist('anexo')
         for imagem in imagens_adicionadas:
             models.AnexoArquivo.objects.create(
                 arquivo=arquivo,
                 anexo=imagem
             )
+        imagens_nao_removidas = [
+            imagem for imagem in imagens if imagem.id not in id_imagens_removidas
+        ]
+        if len(imagens_nao_removidas) == 0 and len(imagens_adicionadas) == 0:
+            arquivo.delete()
+            return redirect(reverse('sportscenterifcn:arquivos'))
+        if len(imagens_nao_removidas) > 0:
+            for id_imagem in id_imagens_removidas:
+                imagem = imagens.get(id=id_imagem)
+                if imagem.anexo.url == arquivo.capa.url:
+                    nova_capa = imagens_nao_removidas[0]
+                    arquivo.capa = nova_capa.anexo
+                    arquivo.save()
+                imagem.delete()
+        elif len(imagens_adicionadas) > 0:
+                nova_capa = imagens_adicionadas[0]
+                arquivo.capa = nova_capa.anexo
+                arquivo.save()
     return redirect(reverse('sportscenterifcn:visualizar_arquivo', kwargs={'slug': slug}))
 
 
