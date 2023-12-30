@@ -60,6 +60,36 @@ class NoticiaForm(forms.ModelForm):
     conteudo = forms.CharField(
         widget=SummernoteWidget(),
         min_length=1,
-        max_length=10000,
+        max_length=50000,
         label='Conteúdo'
     )
+
+
+class ArquivoForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['titulo'].widget.attrs['placeholder'] = 'Digite o título do arquivo...'
+
+    class Meta:
+        model = models.Arquivo
+        fields = [
+            'titulo'
+        ]
+
+    titulo = forms.CharField(
+        min_length=1,
+        max_length=200,
+        label='Título'
+    )
+
+
+class AnexoArquivoForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['anexo'].widget.attrs['multiple'] = True
+
+    class Meta(ArquivoForm.Meta):
+        model = models.AnexoArquivo
+        fields = [
+            'anexo'
+        ]
