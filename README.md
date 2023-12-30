@@ -16,10 +16,15 @@ Finalizada a modelagem de dados, foi possível chegar ao diagrama entidade-relac
 
 > É necessário ter o interpretador [Python](https://www.python.org/downloads/) na versão 3.12.1 instalado no sistema.
 
-Baixe o repositório, abra o terminal na raiz dele, crie um ambiente virtual e o ative.
+Baixe o repositório, abra o terminal na raiz dele e crie um ambiente virtual.
 
 ```bash
 python -m venv venv
+```
+
+Ative o ambiente virtual criado.
+
+```bash
 . venv/bin/activate
 ```
 
