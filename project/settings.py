@@ -27,7 +27,7 @@ load_dotenv(BASE_DIR / '.env', override=True)
 SECRET_KEY = getenv('SECRET_KEY', 'ALTERAR')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = int(bool(getenv('DEBUG', 0)))
+DEBUG = bool(int(getenv('DEBUG', 0)))
 
 ALLOWED_HOSTS = [
     host.strip() for host in getenv('ALLOWED_HOSTS', '').split(',')
