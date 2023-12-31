@@ -521,10 +521,18 @@ def perfil(request):
     if not request.user.is_authenticated:
         return redirect(reverse('sportscenterifcn:login'))
     usuario = models.Usuario.objects.get(pk=request.user.username)
+    emails = []
+    if usuario.email_pessoal:
+        emails.append(usuario.email_pessoal)
+    if usuario.email_escolar:
+        emails.append(usuario.email_escolar)
+    if usuario.email_academico:
+        emails.append(usuario.email_academico)
     return render(
         request,
         'sportscenterifcn/pages/perfil.html',
         {
             'usuario': usuario,
+            'emails': emails
         }
     )

@@ -26,12 +26,14 @@
           <h3>CPF</h3>
           <p>{{ usuario.cpf }}</p>
         </div>
-        <div class="email">
-          <h3>E-mails</h3>
-          <p>{{ usuario.email_pessoal }}</p>
-          <p>{{ usuario.email_escolar }}</p>
-          <p>{{ usuario.email_academico }}</p>
-        </div>
+        {% if emails|length > 0 %}
+          <div class="email">
+            <h3>E-mails</h3>
+            {% for email in emails %}
+              <p>{{ email }}</p>
+            {% endfor %}
+          </div>
+        {% endif %}
         <div class="campus">
           <h3>Campus</h3>
           <p>{{ usuario.campus }}</p>
