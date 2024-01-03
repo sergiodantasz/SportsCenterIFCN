@@ -6,6 +6,11 @@
   --cor-verde-escura: #143D1E;
 }
 
+::selection {
+  background-color: var(--cor-verde);
+  color: var(--cor-branca);
+}
+
 * {
   margin: 0;
   padding: 0;
