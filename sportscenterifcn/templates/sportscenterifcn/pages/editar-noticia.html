@@ -50,6 +50,8 @@
     })
     let grupoCampoInputCapa = inputCapa.parentNode;
     let tagBr = grupoCampoInputCapa.querySelector('br');
+    let capaAtual = grupoCampoInputCapa.querySelector('a');
+    capaAtual.setAttribute('target', '_blank');
     grupoCampoInputCapa.removeChild(tagBr);
     for (let i = 0; i < grupoCampoInputCapa.childNodes.length; i++) {
       let node = grupoCampoInputCapa.childNodes[i];
