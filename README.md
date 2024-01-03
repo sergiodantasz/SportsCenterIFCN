@@ -1,4 +1,4 @@
-# <img src="Sports Center IFCN.png" alt="Logo do Sports Center IFCN." width="40px" align="center"> Sports Center IFCN <img src="Sports Center IFCN.png" alt="Logo do Sports Center IFCN." width="40px" align="center">
+# <img src="assets/Sports Center IFCN.png" alt="Logo do Sports Center IFCN." width="40px" align="center"> Sports Center IFCN <img src="assets/Sports Center IFCN.png" alt="Logo do Sports Center IFCN." width="40px" align="center">
 
 O presente repositório é utilizado para armazenar o código do Sports Center IFCN. Este projeto está sendo desenvolvido como método de avaliação da disciplina de Projeto Integrador, requerida no 3º período do curso técnico integrado em Informática do IFRN *Campus* Currais Novos.
 
@@ -10,7 +10,7 @@ O Sports Center IFCN é uma plataforma que tem como objetivo principal manter to
 
 Finalizada a modelagem de dados, foi possível chegar ao diagrama entidade-relacionamento (DER) mostrado na imagem abaixo.
 
-![Diagrama entidade-relacionamento do Sports Center IFCN](DER.png)
+![Diagrama entidade-relacionamento do Sports Center IFCN](assets/DER.png)
 
 ## Execução
 
