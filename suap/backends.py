@@ -67,7 +67,7 @@ class SuapOAuth2(BaseOAuth2):
             'last_name': response.get('ultimo_nome'),
             'email': response.get('email_secundario'),
         }
-    
+
     def user_data(self, access_token, *args, **kwargs):
         return self.request(
             url=self.USER_DATA_URL,
